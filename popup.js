@@ -5,6 +5,35 @@
 
 // Translation System
 const translations = {
+    ja: {
+        appName: 'Genspark Conversation Manager', version: 'バージョン',
+        checkingConnection: '接続を確認しています...', searchingTab: 'Genspark のタブを探しています...',
+        connectedSuccess: '接続しました', extensionActive: '拡張機能は有効です',
+        notOnGenspark: 'Genspark のページではありません', onlyOnGenspark: 'この拡張機能は genspark.ai で利用できます',
+        connectionError: '接続エラー', cannotConnect: '拡張機能に接続できません',
+        messagesInConv: '会話内のメッセージ', savedConversations: '保存済みの会話',
+        search: '検索', searchInConv: '現在の会話', searchAll: 'すべての会話',
+        searchPlaceholderConv: '会話内を検索', searchPlaceholderAll: 'すべての会話を検索', searchBtn: '検索',
+        noResults: '検索結果がありません', searching: '検索中...', resultsFound: '{count} 件の結果が見つかりました',
+        conversationManager: '会話マネージャー', saveCurrentConv: '現在の会話を保存',
+        viewSavedConvs: '保存済みの会話を表示', downloadAllConvs: '保存済みの会話をすべてダウンロード',
+        noSavedConvs: '保存済みの会話はありません', saveConvToStart: '現在の会話を保存して始めましょう',
+        openConv: '会話を開く', deleteConv: '会話を削除', confirmDelete: 'この会話を削除しますか？',
+        confirmDownloadAll: '保存済みの会話をすべてダウンロードしますか？',
+        downloadConvBtn: '会話をダウンロード（JSON + TXT）', downloadJsonBtn: 'JSON のみダウンロード',
+        downloadTxtBtn: 'TXT のみダウンロード', refreshBtn: 'データを更新', searchInConvBtn: '会話を検索',
+        downloadingConv: '会話をダウンロード中...', convDownloaded: '会話をダウンロードしました', downloadError: 'ダウンロードエラー',
+        savingConv: '会話を保存中...', convSaved: '会話を保存しました', messages: '件のメッセージ',
+        convDeleted: '会話を削除しました', downloadingAll: 'すべての会話をダウンロード中...',
+        allConvsDownloaded: '{count} 件の会話をダウンロードしました', noConvsToDownload: 'ダウンロードする保存済みの会話がありません',
+        openingInNewTab: '会話を新しいタブで開いています...', noUrlAvailable: 'この会話の URL がありません',
+        navigatingToConv: '会話に移動中...', navigationComplete: '会話に移動しました', navigationError: '会話への移動に失敗しました',
+        enterSearchText: '検索する文字を入力してください', searchError: '検索エラー', scrollToMessage: 'メッセージに移動しました',
+        refreshingData: 'データを更新中...', dataRefreshed: 'データを更新しました', noConnection: '拡張機能に接続されていません',
+        loadingSavedConvs: '保存済みの会話を読み込み中...', loadingError: '保存済みの会話を読み込めませんでした',
+        deleteError: '会話を削除できませんでした', saveError: '会話を保存できませんでした',
+        exactMatch: '完全一致', partialMatch: '部分一致', footerText: '会話の検索、ダウンロード、管理', loading: '読み込み中...'
+    },
     he: {
         // Header
         appName: 'Genspark Conversation Manager',
@@ -183,13 +212,47 @@ const translations = {
     }
 };
 
+Object.assign(translations.ja, {
+    downloadMdBtn: 'Markdown をダウンロード (.md)', savedDownloadFormat: '保存済み会話の出力形式',
+    diagnosticsBtn: '抽出診断を保存', collectingDiagnostics: 'ページ構造を確認しています...',
+    diagnosticsSaved: '診断ファイルを保存しました', diagnosticsError: '診断ファイルを保存できませんでした',
+    extractionHint: '会話を検出できません。会話が表示されている場合は「抽出診断を保存」で診断ファイルを取得してください。',
+    noActiveTab: 'アクティブなタブが見つかりません', notResponding: '拡張機能から応答がありません',
+    injectionFailed: 'ページへの接続に失敗しました', unknown: '不明', user: 'ユーザー',
+    highlightError: 'メッセージを表示できませんでした', noMessages: '会話にメッセージが見つかりません',
+    exportTitle: '保存済みの会話', exportDate: '出力日時', totalConversations: '会話の総数',
+    conversation: '会話', savedAt: '保存日時', messageCount: 'メッセージ数', title: 'タイトル', date: '日時'
+});
+Object.assign(translations.en, {
+    downloadMdBtn: 'Download Markdown (.md)', savedDownloadFormat: 'Saved conversation export format',
+    diagnosticsBtn: 'Save extraction diagnostics', collectingDiagnostics: 'Inspecting page structure...',
+    diagnosticsSaved: 'Diagnostic file saved', diagnosticsError: 'Could not save diagnostic file',
+    extractionHint: 'No messages detected. If the conversation is visible, use “Save extraction diagnostics” to collect a diagnostic file.',
+    noActiveTab: 'No active tab found', notResponding: 'Extension is not responding',
+    injectionFailed: 'Failed to connect to the page', unknown: 'Unknown', user: 'User',
+    highlightError: 'Failed to highlight message', noMessages: 'No conversation messages found',
+    exportTitle: 'Saved conversations', exportDate: 'Export date', totalConversations: 'Total conversations',
+    conversation: 'Conversation', savedAt: 'Saved at', messageCount: 'Message count', title: 'Title', date: 'Date'
+});
+Object.assign(translations.he, {
+    downloadMdBtn: 'הורד Markdown (.md)', savedDownloadFormat: 'פורמט ייצוא שיחות שמורות',
+    diagnosticsBtn: 'שמור אבחון חילוץ', collectingDiagnostics: 'בודק את מבנה הדף...',
+    diagnosticsSaved: 'קובץ האבחון נשמר', diagnosticsError: 'לא ניתן לשמור את קובץ האבחון',
+    extractionHint: 'לא זוהו הודעות. אם השיחה מוצגת, השתמשו בשמירת אבחון חילוץ כדי ליצור קובץ אבחון.',
+    noActiveTab: 'לא נמצא טאב פעיל', notResponding: 'התוסף לא מגיב',
+    injectionFailed: 'כשל בהזרקת הסקריפט', unknown: 'לא ידוע', user: 'משתמש',
+    highlightError: 'שגיאה בהדגשת הודעה', noMessages: 'לא נמצאו הודעות בשיחה',
+    exportTitle: 'שיחות שמורות', exportDate: 'תאריך ייצוא', totalConversations: 'סך הכל שיחות',
+    conversation: 'שיחה', savedAt: 'נשמר ב', messageCount: 'כמות הודעות', title: 'כותרת', date: 'תאריך'
+});
+
 class PopupManager {
     constructor() {
         this.isConnected = false;
         this.currentTab = null;
         this.stats = { messageCount: 0 };
         this.currentSearchMode = 'conversation'; // 'conversation' or 'all'
-        this.currentLang = 'he'; // Default language: Hebrew
+        this.currentLang = 'ja';
 
         this.elements = {};
         this.init();
@@ -210,15 +273,15 @@ class PopupManager {
     async loadLanguage() {
         try {
             const stored = await chrome.storage.local.get(['language']);
-            this.currentLang = stored.language || 'he';
+            this.currentLang = Object.hasOwn(translations, stored.language) ? stored.language : 'ja';
         } catch (error) {
             console.error('Failed to load language:', error);
-            this.currentLang = 'he';
+            this.currentLang = 'ja';
         }
     }
 
     async setLanguage(lang) {
-        if (lang !== 'he' && lang !== 'en') {
+        if (!Object.hasOwn(translations, lang)) {
             console.error('Invalid language:', lang);
             return;
         }
@@ -234,6 +297,10 @@ class PopupManager {
 
         // Update UI
         this.updateUILanguage();
+        this.checkConnection();
+        if (this.elements.savedConversationsContainer.style.display !== 'none') this.viewSavedConversations();
+        this.elements.searchResults.innerHTML = '';
+        this.elements.message.style.display = 'none';
         console.log(`Language changed to: ${lang}`);
     }
 
@@ -263,6 +330,7 @@ class PopupManager {
         if (this.elements.langHe && this.elements.langEn) {
             this.elements.langHe.classList.toggle('active', this.currentLang === 'he');
             this.elements.langEn.classList.toggle('active', this.currentLang === 'en');
+            this.elements.langJa.classList.toggle('active', this.currentLang === 'ja');
         }
     }
 
@@ -289,6 +357,12 @@ class PopupManager {
         if (searchTitle) {
             searchTitle.textContent = `🔍 ${this.t('search')}`;
         }
+        document.querySelector('#savedConversationsContainer .search-title').textContent = `📚 ${this.t('savedConversations')}`;
+        document.querySelector('#loading div:last-child').textContent = this.t('loading');
+        this.elements.extractionHint.textContent = this.t('extractionHint');
+        if (this.elements.savedDownloadFormatLabel) {
+            this.elements.savedDownloadFormatLabel.textContent = this.t('savedDownloadFormat');
+        }
 
         // Update section title
         const sectionTitle = document.querySelector('.section-title');
@@ -309,6 +383,10 @@ class PopupManager {
             this.elements.toggleSearchBtn.innerHTML = `<span class="icon">🔍</span> ${this.t('searchInConvBtn')}`;
         }
 
+        if (this.elements.downloadMdBtn) {
+            this.elements.downloadMdBtn.innerHTML = `<span class="icon">📥</span> ${this.t('downloadMdBtn')}`;
+        }
+
         if (this.elements.downloadBtn) {
             this.elements.downloadBtn.innerHTML = `<span class="icon">📥</span> ${this.t('downloadConvBtn')}`;
         }
@@ -323,6 +401,9 @@ class PopupManager {
 
         if (this.elements.refreshBtn) {
             this.elements.refreshBtn.innerHTML = `<span class="icon">🔄</span> ${this.t('refreshBtn')}`;
+        }
+        if (this.elements.diagnosticsBtn) {
+            this.elements.diagnosticsBtn.innerHTML = `<span class="icon">🔎</span> ${this.t('diagnosticsBtn')}`;
         }
 
         if (this.elements.saveConversationBtn) {
@@ -365,10 +446,15 @@ class PopupManager {
             statsGrid: document.getElementById('statsGrid'),
             messageCount: document.getElementById('messageCount'),
             savedCount: document.getElementById('savedCount'),
+            downloadMdBtn: document.getElementById('downloadMdBtn'),
             downloadBtn: document.getElementById('downloadBtn'),
+            savedDownloadFormat: document.getElementById('savedDownloadFormat'),
+            savedDownloadFormatLabel: document.getElementById('savedDownloadFormatLabel'),
             downloadJsonBtn: document.getElementById('downloadJsonBtn'),
             downloadTxtBtn: document.getElementById('downloadTxtBtn'),
             refreshBtn: document.getElementById('refreshBtn'),
+            diagnosticsBtn: document.getElementById('diagnosticsBtn'),
+            extractionHint: document.getElementById('extractionHint'),
             toggleSearchBtn: document.getElementById('toggleSearchBtn'),
             searchContainer: document.getElementById('searchContainer'),
             searchInput: document.getElementById('searchInput'),
@@ -386,12 +472,19 @@ class PopupManager {
             closeSaved: document.getElementById('closeSaved'),
             langHe: document.getElementById('langHe'),
             langEn: document.getElementById('langEn'),
+            langJa: document.getElementById('langJa'),
             loading: document.getElementById('loading'),
             message: document.getElementById('message')
         };
     }
 
     attachEventListeners() {
+        this.elements.downloadMdBtn?.addEventListener('click', () => {
+            this.downloadConversation('md');
+        });
+        this.elements.diagnosticsBtn?.addEventListener('click', () => {
+            this.saveExtractionDiagnostics();
+        });
         // כפתור הורדה כללית
         this.elements.downloadBtn?.addEventListener('click', () => {
             this.downloadConversation('both');
@@ -472,24 +565,28 @@ class PopupManager {
         this.elements.langEn?.addEventListener('click', () => {
             this.setLanguage('en');
         });
+        this.elements.langJa?.addEventListener('click', () => {
+            this.setLanguage('ja');
+        });
     }
 
     async checkConnection() {
         try {
             this.showLoading(true);
-            this.updateStatus('🔍', 'בודק חיבור...', 'מחפש טאב פעיל של Genspark...');
+            this.updateStatus('🔍', this.t('checkingConnection'), this.t('searchingTab'));
 
             // קבל את הטאב הנוכחי
             const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
             this.currentTab = tabs[0];
 
             if (!this.currentTab) {
-                throw new Error('לא נמצא טאב פעיל');
+                throw new Error(this.t('noActiveTab'));
             }
 
             // בדוק אם זה דף של Genspark
             if (!this.currentTab.url?.includes('genspark.ai')) {
-                this.updateStatus('⚠️', 'לא בדף Genspark', 'התוסף פועל רק באתר genspark.ai');
+                this.isConnected = false;
+                this.updateStatus('⚠️', this.t('notOnGenspark'), this.t('onlyOnGenspark'));
                 this.setButtonsEnabled(false);
                 return;
             }
@@ -499,18 +596,18 @@ class PopupManager {
 
             if (response && response.status === 'active') {
                 this.isConnected = true;
-                this.updateStatus('✅', 'מחובר בהצלחה', `התוסף פועל (${response.version || 'לא ידוע'})`);
+                this.updateStatus('✅', this.t('connectedSuccess'), `${this.t('extensionActive')} (${response.version || this.t('unknown')})`);
                 this.setButtonsEnabled(true);
                 await this.loadStats();
                 await this.loadSavedConversationsCount();
             } else {
-                throw new Error('התוסף לא מגיב');
+                throw new Error(this.t('notResponding'));
             }
 
         } catch (error) {
             console.error('Connection failed:', error);
             this.isConnected = false;
-            this.updateStatus('❌', 'שגיאת חיבור', error.message || 'לא ניתן להתחבר לתוסף');
+            this.updateStatus('❌', this.t('connectionError'), error.message || this.t('cannotConnect'));
             this.setButtonsEnabled(false);
         } finally {
             this.showLoading(false);
@@ -519,7 +616,7 @@ class PopupManager {
 
     async sendMessageToTab(action, data = {}) {
         if (!this.currentTab?.id) {
-            throw new Error('אין טאב פעיל');
+            throw new Error(this.t('noActiveTab'));
         }
 
         try {
@@ -530,8 +627,6 @@ class PopupManager {
 
             return response;
         } catch (error) {
-            console.error('Message sending failed:', error);
-
             // נסה להזריק את הסקריפט אם הוא לא קיים
             if (error.message?.includes('Could not establish connection')) {
                 await this.injectContentScript();
@@ -543,6 +638,7 @@ class PopupManager {
                 });
             }
 
+            console.error('Message sending failed:', error);
             throw error;
         }
     }
@@ -551,7 +647,7 @@ class PopupManager {
         try {
             await chrome.scripting.executeScript({
                 target: { tabId: this.currentTab.id },
-                files: ['content.js']
+                files: ['markdown.js', 'content.js']
             });
 
             // המתן קצת לאתחול
@@ -559,7 +655,7 @@ class PopupManager {
 
         } catch (error) {
             console.error('Script injection failed:', error);
-            throw new Error('כשל בהזרקת הסקריפט');
+            throw new Error(this.t('injectionFailed'));
         }
     }
 
@@ -581,6 +677,10 @@ class PopupManager {
     }
 
     updateStatsDisplay() {
+        if (this.elements.extractionHint) {
+            this.elements.extractionHint.textContent = this.t('extractionHint');
+            this.elements.extractionHint.style.display = this.stats.messageCount === 0 ? 'block' : 'none';
+        }
         if (this.elements.messageCount) {
             this.elements.messageCount.textContent = this.stats.messageCount;
         }
@@ -591,43 +691,46 @@ class PopupManager {
         }
     }
 
-    async downloadConversation(format) {
+    async downloadConversation(format = 'md') {
         try {
             if (!this.isConnected) {
-                throw new Error('אין חיבור לתוסף');
+                throw new Error(this.t('noConnection'));
             }
 
             this.showLoading(true);
-            this.showMessage('מוריד שיחה...', 'info');
+            this.showMessage(this.t('downloadingConv'), 'info');
 
-            const response = await this.sendMessageToTab('download', { format });
+            const response = await this.sendMessageToTab('download', { format, language: this.currentLang, labels: {
+                conversation: this.t('conversation'), title: this.t('title'), date: this.t('date'),
+                messageCount: this.t('messageCount'), user: this.t('user')
+            } });
 
             if (response && response.success) {
-                this.showMessage('✅ השיחה הורדה בהצלחה!', 'success');
+                this.showMessage('✅ ' + this.t('convDownloaded'), 'success');
 
                 // רענן נתונים
                 setTimeout(() => this.loadStats(), 1000);
             } else {
-                throw new Error('כשל בהורדת השיחה');
+                throw new Error(response?.errorCode ? this.t(response.errorCode) : this.t('downloadError'));
             }
 
         } catch (error) {
             console.error('Download failed:', error);
-            this.showMessage('❌ שגיאה בהורדה: ' + error.message, 'error');
+            this.showMessage('❌ ' + this.t('downloadError') + ': ' + error.message, 'error');
         } finally {
             this.showLoading(false);
         }
     }
 
     async refreshData() {
-        this.showMessage('מרענן נתונים...', 'info');
+        this.showMessage(this.t('refreshingData'), 'info');
         await this.checkConnection();
-        this.showMessage('✅ נתונים עודכנו', 'success');
+        if (this.isConnected) this.showMessage('✅ ' + this.t('dataRefreshed'), 'success');
     }
 
     toggleSearch() {
         if (!this.isConnected) {
-            this.showMessage('❌ אין חיבור לתוסף', 'error');
+            this.showMessage('❌ ' + this.t('noConnection'), 'error');
             return;
         }
 
@@ -660,11 +763,11 @@ class PopupManager {
         if (mode === 'conversation') {
             this.elements.searchModeConversation?.classList.add('active');
             this.elements.searchModeAll?.classList.remove('active');
-            this.elements.searchInput.placeholder = 'הקלד טקסט או מילה לחיפוש בשיחה...';
+            this.elements.searchInput.placeholder = this.t('searchPlaceholderConv');
         } else {
             this.elements.searchModeConversation?.classList.remove('active');
             this.elements.searchModeAll?.classList.add('active');
-            this.elements.searchInput.placeholder = 'הקלד טקסט או מילה לחיפוש בכל השיחות...';
+            this.elements.searchInput.placeholder = this.t('searchPlaceholderAll');
         }
 
         // נקה תוצאות קודמות
@@ -678,13 +781,13 @@ class PopupManager {
         const query = this.elements.searchInput.value.trim();
 
         if (!query) {
-            this.showMessage('⚠️ נא להזין טקסט לחיפוש', 'error');
+            this.showMessage('⚠️ ' + this.t('enterSearchText'), 'error');
             return;
         }
 
         try {
             this.showLoading(true);
-            this.elements.searchResults.innerHTML = '<div class="search-no-results">מחפש...</div>';
+            this.elements.searchResults.innerHTML = `<div class="search-no-results">${this.t('searching')}</div>`;
 
             if (this.currentSearchMode === 'conversation') {
                 // חיפוש בשיחה הנוכחית
@@ -693,7 +796,7 @@ class PopupManager {
                 if (response && response.success) {
                     this.displaySearchResults(response.results, query);
                 } else {
-                    throw new Error('כשל בחיפוש בשיחה');
+                    throw new Error(this.t('searchError'));
                 }
             } else {
                 // חיפוש בכל השיחות
@@ -702,14 +805,14 @@ class PopupManager {
                 if (response && response.success) {
                     this.displayAllSearchResults(response.results, query);
                 } else {
-                    throw new Error('כשל בחיפוש בכל השיחות');
+                    throw new Error(this.t('searchError'));
                 }
             }
 
         } catch (error) {
             console.error('Search failed:', error);
-            this.showMessage('❌ שגיאה בחיפוש: ' + error.message, 'error');
-            this.elements.searchResults.innerHTML = '<div class="search-no-results">שגיאה בחיפוש</div>';
+            this.showMessage('❌ ' + this.t('searchError') + ': ' + error.message, 'error');
+            this.elements.searchResults.innerHTML = `<div class="search-no-results">${this.t('searchError')}</div>`;
         } finally {
             this.showLoading(false);
         }
@@ -717,14 +820,14 @@ class PopupManager {
 
     displaySearchResults(results, query) {
         if (!results || results.length === 0) {
-            this.elements.searchResults.innerHTML = '<div class="search-no-results">לא נמצאו תוצאות</div>';
+            this.elements.searchResults.innerHTML = `<div class="search-no-results">${this.t('noResults')}</div>`;
             return;
         }
 
         let html = '';
 
         results.forEach((result) => {
-            const typeLabel = result.type === 'user' ? '👤 משתמש' : '🤖 AI';
+            const typeLabel = result.type === 'user' ? `👤 ${this.t('user')}` : '🤖 AI';
 
             // הדגש את המילה שחיפשנו
             const highlightedSnippet = this.highlightText(result.snippet, query);
@@ -747,12 +850,12 @@ class PopupManager {
             });
         });
 
-        this.showMessage(`✅ נמצאו ${results.length} תוצאות`, 'success');
+        this.showMessage('✅ ' + this.t('resultsFound', { count: results.length }), 'success');
     }
 
     displayAllSearchResults(results, query) {
         if (!results || results.length === 0) {
-            this.elements.searchResults.innerHTML = '<div class="search-no-results">לא נמצאו תוצאות בשיחות</div>';
+            this.elements.searchResults.innerHTML = `<div class="search-no-results">${this.t('noResults')}</div>`;
             return;
         }
 
@@ -766,9 +869,9 @@ class PopupManager {
             // תצוגת ציון התאמה
             let matchBadge = '';
             if (result.score >= 100) {
-                matchBadge = '<span class="search-match-score">⭐ התאמה מלאה</span>';
+                matchBadge = `<span class="search-match-score">⭐ ${this.t('exactMatch')}</span>`;
             } else if (result.score >= 80) {
-                matchBadge = '<span class="search-match-score">✓ התאמה חלקית</span>';
+                matchBadge = `<span class="search-match-score">✓ ${this.t('partialMatch')}</span>`;
             }
 
             html += `
@@ -792,16 +895,16 @@ class PopupManager {
             });
         });
 
-        this.showMessage(`✅ נמצאו ${results.length} תוצאות ב-${results.length} שיחות`, 'success');
+        this.showMessage('✅ ' + this.t('resultsFound', { count: results.length }), 'success');
     }
 
     async navigateToConversation(conversationId) {
         try {
-            this.showMessage('מנווט לשיחה...', 'info');
+            this.showMessage(this.t('navigatingToConv'), 'info');
 
             await this.sendMessageToTab('navigateToConversation', { conversationId });
 
-            this.showMessage('✅ ניווט לשיחה הושלם', 'success');
+            this.showMessage('✅ ' + this.t('navigationComplete'), 'success');
 
             // סגור את פאנל החיפוש אחרי כמה שניות
             setTimeout(() => {
@@ -810,7 +913,7 @@ class PopupManager {
 
         } catch (error) {
             console.error('Navigation failed:', error);
-            this.showMessage('❌ שגיאה בניווט לשיחה', 'error');
+            this.showMessage('❌ ' + this.t('navigationError'), 'error');
         }
     }
 
@@ -831,20 +934,18 @@ class PopupManager {
     async highlightMessageInPage(index) {
         try {
             await this.sendMessageToTab('highlightMessage', { index });
-            this.showMessage('✅ גלילה להודעה', 'success');
+            this.showMessage('✅ ' + this.t('scrollToMessage'), 'success');
         } catch (error) {
             console.error('Highlight failed:', error);
-            this.showMessage('❌ שגיאה בהדגשת הודעה', 'error');
+            this.showMessage('❌ ' + this.t('highlightError'), 'error');
         }
     }
 
     updateStatus(icon, title, info) {
         if (this.elements.statusTitle) {
-            const iconSpan = this.elements.statusTitle.querySelector('.icon');
+            this.elements.statusTitle.textContent = title;
+            const iconSpan = this.elements.statusTitle.parentElement.querySelector('.icon');
             if (iconSpan) iconSpan.textContent = icon;
-
-            const titleText = this.elements.statusTitle.childNodes[1];
-            if (titleText) titleText.textContent = title;
         }
 
         if (this.elements.statusInfo) {
@@ -862,13 +963,15 @@ class PopupManager {
 
     setButtonsEnabled(enabled) {
         const buttons = [
+            this.elements.downloadMdBtn,
             this.elements.downloadBtn,
             this.elements.downloadJsonBtn,
             this.elements.downloadTxtBtn,
             this.elements.toggleSearchBtn,
             this.elements.saveConversationBtn,
             this.elements.viewSavedBtn,
-            this.elements.downloadAllBtn
+            this.elements.downloadAllBtn,
+            this.elements.diagnosticsBtn
         ];
 
         buttons.forEach(button => {
@@ -881,6 +984,7 @@ class PopupManager {
         if (this.elements.managerSection) {
             this.elements.managerSection.style.display = enabled ? 'block' : 'none';
         }
+        if (!enabled && this.elements.extractionHint) this.elements.extractionHint.style.display = 'none';
     }
 
     showLoading(show) {
@@ -905,27 +1009,51 @@ class PopupManager {
     }
 
     // Conversation Manager Functions
+    async saveExtractionDiagnostics() {
+        let url;
+        try {
+            this.showLoading(true);
+            this.showMessage(this.t('collectingDiagnostics'), 'info');
+            const response = await this.sendMessageToTab('getExtractionDiagnostics');
+            if (!response?.success || !response.diagnostics) throw new Error(this.t('diagnosticsError'));
+            const blob = new Blob([JSON.stringify(response.diagnostics, null, 2)], { type: 'application/json;charset=utf-8' });
+            url = URL.createObjectURL(blob);
+            await chrome.downloads.download({
+                url,
+                filename: `genspark-diagnostics_${new Date().toISOString().replace(/[:.]/g, '-')}.json`,
+                saveAs: true
+            });
+            this.showMessage(this.t('diagnosticsSaved'), 'success');
+        } catch (error) {
+            console.error('Extraction diagnostics failed:', error);
+            this.showMessage(`${this.t('diagnosticsError')}: ${error.message}`, 'error');
+        } finally {
+            if (url) URL.revokeObjectURL(url);
+            this.showLoading(false);
+        }
+    }
+
     async saveConversation() {
         try {
             if (!this.isConnected) {
-                throw new Error('אין חיבור לתוסף');
+                throw new Error(this.t('noConnection'));
             }
 
             this.showLoading(true);
-            this.showMessage('שומר שיחה...', 'info');
+            this.showMessage(this.t('savingConv'), 'info');
 
             const response = await this.sendMessageToTab('saveConversation');
 
             if (response && response.success) {
-                this.showMessage(`✅ שיחה נשמרה בהצלחה! (${response.messageCount} הודעות)`, 'success');
+                this.showMessage(`✅ ${this.t('convSaved')} (${response.messageCount} ${this.t('messages')})`, 'success');
                 await this.loadSavedConversationsCount();
             } else {
-                throw new Error(response.error || 'כשל בשמירת השיחה');
+                throw new Error(response.errorCode ? this.t(response.errorCode) : (response.error || this.t('saveError')));
             }
 
         } catch (error) {
             console.error('Save conversation failed:', error);
-            this.showMessage('❌ שגיאה בשמירת שיחה: ' + error.message, 'error');
+            this.showMessage('❌ ' + this.t('saveError') + ': ' + error.message, 'error');
         } finally {
             this.showLoading(false);
         }
@@ -958,8 +1086,8 @@ class PopupManager {
             if (savedConversations.length === 0) {
                 this.elements.savedConversationsList.innerHTML = `
                     <div class="no-saved-conversations">
-                        אין שיחות שמורות<br>
-                        שמור שיחה נוכחית כדי להתחיל
+                        ${this.t('noSavedConvs')}<br>
+                        ${this.t('saveConvToStart')}
                     </div>
                 `;
             } else {
@@ -967,18 +1095,18 @@ class PopupManager {
 
                 savedConversations.forEach((conv, index) => {
                     const savedDate = new Date(conv.savedAt);
-                    const dateStr = savedDate.toLocaleDateString('he-IL');
-                    const timeStr = savedDate.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+                    const dateStr = savedDate.toLocaleDateString(this.currentLang);
+                    const timeStr = savedDate.toLocaleTimeString(this.currentLang, { hour: '2-digit', minute: '2-digit' });
 
                     html += `
                         <div class="saved-conversation-item" data-index="${index}" data-id="${conv.id}">
                             <div class="saved-conversation-header">
                                 <div class="saved-conversation-title">${conv.title}</div>
                                 <div class="saved-conversation-actions">
-                                    <button class="saved-conversation-action open" title="פתח שיחה" data-index="${index}">
+                                    <button class="saved-conversation-action open" title="${this.t('openConv')}" data-index="${index}">
                                         🔗
                                     </button>
-                                    <button class="saved-conversation-action delete" title="מחק שיחה" data-index="${index}">
+                                    <button class="saved-conversation-action delete" title="${this.t('deleteConv')}" data-index="${index}">
                                         🗑️
                                     </button>
                                 </div>
@@ -986,7 +1114,7 @@ class PopupManager {
                             <div class="saved-conversation-meta">
                                 <span>📅 ${dateStr}</span>
                                 <span>⏰ ${timeStr}</span>
-                                <span>💬 ${conv.messageCount} הודעות</span>
+                                <span>💬 ${conv.messageCount} ${this.t('messages')}</span>
                             </div>
                         </div>
                     `;
@@ -1017,7 +1145,7 @@ class PopupManager {
 
         } catch (error) {
             console.error('Failed to view saved conversations:', error);
-            this.showMessage('❌ שגיאה בטעינת שיחות שמורות', 'error');
+            this.showMessage('❌ ' + this.t('loadingError'), 'error');
         } finally {
             this.showLoading(false);
         }
@@ -1029,7 +1157,7 @@ class PopupManager {
 
     async deleteConversation(index) {
         try {
-            if (!confirm('האם אתה בטוח שברצונך למחוק שיחה זו?')) {
+            if (!confirm(this.t('confirmDelete'))) {
                 return;
             }
 
@@ -1042,7 +1170,7 @@ class PopupManager {
 
             await chrome.storage.local.set({ savedConversations: savedConversations });
 
-            this.showMessage('✅ שיחה נמחקה בהצלחה', 'success');
+            this.showMessage('✅ ' + this.t('convDeleted'), 'success');
 
             // רענן את התצוגה
             await this.loadSavedConversationsCount();
@@ -1050,7 +1178,7 @@ class PopupManager {
 
         } catch (error) {
             console.error('Failed to delete conversation:', error);
-            this.showMessage('❌ שגיאה במחיקת שיחה', 'error');
+            this.showMessage('❌ ' + this.t('deleteError'), 'error');
         } finally {
             this.showLoading(false);
         }
@@ -1059,89 +1187,97 @@ class PopupManager {
     openConversation(conversation) {
         if (conversation.url) {
             chrome.tabs.create({ url: conversation.url });
-            this.showMessage('✅ פותח שיחה בטאב חדש...', 'success');
+            this.showMessage('✅ ' + this.t('openingInNewTab'), 'success');
         } else {
-            this.showMessage('⚠️ אין URL זמין לשיחה זו', 'error');
+            this.showMessage('⚠️ ' + this.t('noUrlAvailable'), 'error');
         }
     }
 
-    async downloadAllConversations() {
+    async downloadAllConversations(format = this.elements.savedDownloadFormat?.value || 'md') {
         try {
-            if (!confirm('האם אתה בטוח שברצונך להוריד את כל השיחות השמורות?')) {
+            if (!confirm(this.t('confirmDownloadAll'))) {
                 return;
             }
 
             this.showLoading(true);
-            this.showMessage('מוריד את כל השיחות...', 'info');
+            this.showMessage(this.t('downloadingAll'), 'info');
 
             const stored = await chrome.storage.local.get(['savedConversations']);
             const savedConversations = stored.savedConversations || [];
 
             if (savedConversations.length === 0) {
-                throw new Error('אין שיחות שמורות להורדה');
+                throw new Error(this.t('noConvsToDownload'));
             }
 
-            // צור קובץ JSON עם כל השיחות
-            const allConversationsData = {
-                exportDate: new Date().toISOString(),
-                totalConversations: savedConversations.length,
-                conversations: savedConversations
-            };
+            const selectedFormat = ['md', 'json', 'txt', 'both'].includes(format) ? format : 'md';
+            const filename = `genspark_all_conversations_${new Date().toISOString().split('T')[0]}`;
+            if (selectedFormat === 'md') {
+                await this.downloadExportBlob(this.convertAllConversationsToMarkdown(savedConversations),
+                    'text/markdown;charset=utf-8', `${filename}.md`);
+            }
+            if (selectedFormat === 'json' || selectedFormat === 'both') {
+                const allConversationsData = {
+                    exportDate: new Date().toISOString(),
+                    totalConversations: savedConversations.length,
+                    conversations: savedConversations
+                };
+                await this.downloadExportBlob(JSON.stringify(allConversationsData, null, 2),
+                    'application/json;charset=utf-8', `${filename}.json`);
+            }
+            if (selectedFormat === 'txt' || selectedFormat === 'both') {
+                await this.downloadExportBlob(this.convertAllConversationsToText(savedConversations),
+                    'text/plain;charset=utf-8', `${filename}.txt`);
+            }
 
-            const jsonContent = JSON.stringify(allConversationsData, null, 2);
-            const txtContent = this.convertAllConversationsToText(savedConversations);
-
-            // הורד JSON
-            const jsonBlob = new Blob([jsonContent], { type: 'application/json' });
-            const jsonUrl = URL.createObjectURL(jsonBlob);
-            const jsonFilename = `genspark_all_conversations_${new Date().toISOString().split('T')[0]}.json`;
-
-            chrome.downloads.download({
-                url: jsonUrl,
-                filename: jsonFilename,
-                saveAs: true
-            });
-
-            // הורד TXT
-            const txtBlob = new Blob([txtContent], { type: 'text/plain; charset=utf-8' });
-            const txtUrl = URL.createObjectURL(txtBlob);
-            const txtFilename = `genspark_all_conversations_${new Date().toISOString().split('T')[0]}.txt`;
-
-            chrome.downloads.download({
-                url: txtUrl,
-                filename: txtFilename,
-                saveAs: true
-            });
-
-            this.showMessage(`✅ ${savedConversations.length} שיחות הורדו בהצלחה!`, 'success');
+            this.showMessage('✅ ' + this.t('allConvsDownloaded', { count: savedConversations.length }), 'success');
 
         } catch (error) {
             console.error('Download all conversations failed:', error);
-            this.showMessage('❌ שגיאה בהורדת שיחות: ' + error.message, 'error');
+            this.showMessage('❌ ' + this.t('downloadError') + ': ' + error.message, 'error');
         } finally {
             this.showLoading(false);
         }
     }
 
+    async downloadExportBlob(content, type, filename) {
+        const url = URL.createObjectURL(new Blob([content], { type }));
+        try {
+            await chrome.downloads.download({ url, filename, saveAs: true });
+        } finally {
+            URL.revokeObjectURL(url);
+        }
+    }
+
+    convertAllConversationsToMarkdown(conversations) {
+        const header = `# ${this.t('exportTitle')}\n\n${this.t('totalConversations')}: ${conversations.length}\n\n`;
+        return header + conversations.map(conversation => globalThis.GensparkMarkdown.renderConversation({
+            title: conversation.title,
+            url: conversation.url,
+            messages: (conversation.messages || []).map(message => ({
+                ...message, content: message.content ?? message.text ?? ''
+            }))
+        })).join('\n\n---\n\n');
+    }
+
     convertAllConversationsToText(conversations) {
         let text = '='.repeat(80) + '\n';
-        text += 'כל השיחות השמורות - Genspark Conversation Manager\n';
-        text += `תאריך ייצוא: ${new Date().toLocaleString('he-IL')}\n`;
-        text += `סך הכל שיחות: ${conversations.length}\n`;
+        text += `${this.t('exportTitle')} - Genspark Conversation Manager\n`;
+        text += `${this.t('exportDate')}: ${new Date().toLocaleString(this.currentLang)}\n`;
+        text += `${this.t('totalConversations')}: ${conversations.length}\n`;
         text += '='.repeat(80) + '\n\n';
 
         conversations.forEach((conv, index) => {
             text += `\n${'='.repeat(80)}\n`;
-            text += `שיחה #${index + 1}: ${conv.title}\n`;
-            text += `נשמר ב: ${new Date(conv.savedAt).toLocaleString('he-IL')}\n`;
-            text += `כמות הודעות: ${conv.messageCount}\n`;
+            text += `${this.t('conversation')} #${index + 1}: ${conv.title}\n`;
+            text += `${this.t('savedAt')}: ${new Date(conv.savedAt).toLocaleString(this.currentLang)}\n`;
+            text += `${this.t('messageCount')}: ${conv.messageCount}\n`;
             text += `URL: ${conv.url}\n`;
             text += '='.repeat(80) + '\n\n';
 
             conv.messages.forEach((msg, msgIndex) => {
-                const type = msg.type === 'user' ? 'משתמש' : 'AI';
+                const type = msg.type === 'user' ? this.t('user') : 'AI';
                 text += `[${msgIndex + 1}] ${type}:\n`;
-                text += `${msg.text}\n`;
+                text += `${msg.content ?? msg.text ?? ''}\n`;
                 text += '-'.repeat(80) + '\n';
             });
 

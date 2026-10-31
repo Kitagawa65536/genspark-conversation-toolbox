@@ -6,6 +6,7 @@
 
   "permissions": [
     "storage",
+    "downloads",
     "activeTab",
     "tabs",
     "scripting"
@@ -18,7 +19,7 @@
 
   "content_scripts": [{
     "matches": ["https://*.genspark.ai/*", "https://genspark.ai/*"],
-    "js": ["content.js"],
+    "js": ["markdown.js", "content.js"],
     "run_at": "document_end"
   }],
 
@@ -29,11 +30,5 @@
 
   "background": {
     "service_worker": "background.js"
-  },
-
-  "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png", 
-    "128": "icon128.png"
   }
 }

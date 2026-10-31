@@ -16,17 +16,24 @@ class GensparkRTLToolbox {
 
             // הודעות משתמש ו-AI
             userMessage: [
+                '.wb-msg-user-row',
+                '.conversation-item-desc.user',
+                '.conversation-statement.user',
                 '[data-testid="user-message"]',
                 '.user-message',
                 '[role="user"]',
                 '.message[data-role="user"]',
                 '.message.user',
                 '.user-bubble',
-                'div[class*="user"]',
                 'div[data-message-type="user"]'
             ],
 
             assistantMessage: [
+                '.sas-asst-msg',
+                '.wb-asst-block',
+                '.conversation-item-desc.assistant',
+                '.conversation-item-desc.ai',
+                '.conversation-statement.assistant',
                 '[data-testid="assistant-message"]', 
                 '[data-testid="ai-message"]',
                 '.assistant-message',
@@ -35,8 +42,6 @@ class GensparkRTLToolbox {
                 '.message[data-role="assistant"]',
                 '.message.assistant',
                 '.ai-bubble',
-                'div[class*="assistant"]',
-                'div[class*="ai-response"]',
                 'div[data-message-type="assistant"]',
                 'div[data-message-type="ai"]'
             ],
@@ -119,71 +124,140 @@ class GensparkRTLToolbox {
         return [...new Set(elements)];
     }
 
-    // חילוץ תוכן השיחה המתוקן
+    getMessageEntries() {
+        const candidates = [
+            ...this.findElements(this.selectors.userMessage).map(element => ({ element, type: 'user' })),
+            ...this.findElements(this.selectors.assistantMessage).map(element => ({ element, type: 'assistant' }))
+        ];
+
+        // A message may match several selectors at different nesting levels.
+        // Keep the outer message container, not its matching descendants.
+        const entries = candidates.filter((entry, index) => !candidates.some((other, otherIndex) =>
+            otherIndex !== index && other.type === entry.type && other.element !== entry.element &&
+            other.element.contains(entry.element)
+        ));
+        entries.sort((a, b) => {
+            const position = a.element.compareDocumentPosition(b.element);
+            return position & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : position & Node.DOCUMENT_POSITION_PRECEDING ? 1 : 0;
+        });
+
+        return entries.map(({ element, type }, index) => ({
+            element,
+            message: {
+                type,
+                content: this.extractMessageContent(element, type),
+                markdown: this.extractMessageMarkdown(element, type),
+                timestamp: this.extractTimestamp(element),
+                order: index,
+                index
+            }
+        })).filter(entry => entry.message.content);
+    }
+
     extractConversation() {
-        console.log('🔍 מחלץ תוכן שיחה...');
+        return this.getMessageEntries().map(entry => entry.message);
+    }
 
-        const conversations = [];
-
-        // חפש הודעות משתמש
-        const userMessages = this.findElements(this.selectors.userMessage);
-        console.log(`נמצאו ${userMessages.length} הודעות משתמש`);
-
-        // חפש הודעות AI
-        const aiMessages = this.findElements(this.selectors.assistantMessage);
-        console.log(`נמצאו ${aiMessages.length} הודעות AI`);
-
-        // עבד הודעות משתמש
-        userMessages.forEach((element, index) => {
-            const content = this.extractMessageContent(element);
-            if (content.trim()) {
-                conversations.push({
-                    type: 'user',
-                    content: content,
-                    timestamp: this.extractTimestamp(element),
-                    order: this.getElementOrder(element),
-                    index: index
-                });
+    getExtractionDiagnostics() {
+        const limits = { nodes: 12000, depth: 80, textLength: 300 };
+        const state = { nodes: 0, truncated: false };
+        // Capture structure and short text samples, not scripts, form values or
+        // arbitrary data attributes (which may contain application state).
+        const attributes = ['id', 'class', 'role', 'data-testid', 'data-role', 'data-message-type', 'data-message-author-role'];
+        const skipTags = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'INPUT', 'TEXTAREA', 'SELECT', 'SVG']);
+        const selectors = [...this.selectors.userMessage, ...this.selectors.assistantMessage,
+            '.markdown-viewer', '.markdown-body', 'iframe'];
+        const frames = [];
+        const visit = (node, depth) => {
+            if (state.nodes >= limits.nodes || depth > limits.depth) {
+                state.truncated = true;
+                return null;
             }
-        });
-
-        // עבד הודעות AI
-        aiMessages.forEach((element, index) => {
-            const content = this.extractMessageContent(element);
-            if (content.trim()) {
-                conversations.push({
-                    type: 'assistant', 
-                    content: content,
-                    timestamp: this.extractTimestamp(element),
-                    order: this.getElementOrder(element),
-                    index: index
-                });
+            state.nodes++;
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent.trim();
+                return text ? { text: text.slice(0, limits.textLength), truncated: text.length > limits.textLength } : null;
             }
-        });
-
-        // מיין לפי סדר בדף
-        conversations.sort((a, b) => a.order - b.order);
-
-        console.log(`✅ חולצו ${conversations.length} הודעות בסך הכל`);
-        return conversations;
+            if (node.nodeType !== Node.ELEMENT_NODE || skipTags.has(node.tagName)) return null;
+            const result = { tag: node.tagName.toLowerCase() };
+            for (const name of attributes) {
+                const value = node.getAttribute(name);
+                if (value) result[name] = value.slice(0, 500);
+            }
+            const children = [];
+            for (const child of node.childNodes) {
+                if (state.nodes >= limits.nodes) {
+                    state.truncated = true;
+                    break;
+                }
+                const captured = visit(child, depth + 1);
+                if (captured) children.push(captured);
+            }
+            if (children.length) result.children = children;
+            if (node.shadowRoot) {
+                result.shadowRoot = Array.from(node.shadowRoot.children, child => visit(child, depth + 1)).filter(Boolean);
+            }
+            if (node.tagName === 'IFRAME') {
+                const frame = { src: node.getAttribute('src') || '', accessible: false };
+                frames.push(frame);
+                try {
+                    const frameDocument = node.contentDocument;
+                    if (frameDocument?.body) {
+                        frame.accessible = true;
+                        frame.selectorCounts = countSelectors(frameDocument);
+                        result.frameBody = visit(frameDocument.body, depth + 1);
+                    }
+                } catch {
+                    // A cross-origin frame is reported but cannot be inspected.
+                }
+            }
+            return result;
+        };
+        const countSelectors = root => Object.fromEntries(selectors.map(selector => [selector, root.querySelectorAll(selector).length]));
+        const selectorCounts = countSelectors(document);
+        const structure = document.body ? visit(document.body, 0) : null;
+        return {
+            schemaVersion: 1,
+            extensionVersion: chrome.runtime.getManifest().version,
+            extractorRevision: 'dom-4-md',
+            capturedAt: new Date().toISOString(),
+            url: window.location.href,
+            title: document.title,
+            readyState: document.readyState,
+            extractedMessageCount: this.extractConversation().length,
+            selectorCounts,
+            frames,
+            limits,
+            visitedNodes: state.nodes,
+            truncated: state.truncated,
+            structure
+        };
     }
 
     // חילוץ תוכן מהודעה בודדת
-    extractMessageContent(messageElement) {
-        // נסה למצוא תוכן ספציפי
-        const contentElements = this.findElements(this.selectors.messageContent, messageElement);
-
-        if (contentElements.length > 0) {
-            return contentElements.map(el => el.textContent || el.innerText).join('\n').trim();
+    extractMessageContent(messageElement, type) {
+        const selectors = type === 'user'
+            ? ['.wb-msg-user-text', '.content code', '[data-testid="message-content"]', '.message-content', '.content', '.text-content']
+            : ['.markdown-viewer', '.markdown-body', '[data-testid="message-content"]', '.message-content', '.content', '.text-content'];
+        for (const selector of selectors) {
+            const element = messageElement.querySelector(selector);
+            const text = element && (element.innerText || element.textContent || '').trim();
+            if (text) return text;
         }
+        return this.filterUIElements(messageElement.innerText || messageElement.textContent || '').trim();
+    }
 
-        // אם לא נמצא תוכן ספציפי, קח את כל הטקסט
-        const textContent = messageElement.textContent || messageElement.innerText || '';
-
-        // סנן כפתורים ואלמנטי ממשק
-        const filteredContent = this.filterUIElements(textContent);
-
-        return filteredContent.trim();
+    extractMessageMarkdown(messageElement, type) {
+        // User prompts are plain text, not rendered Markdown. Do not reinterpret
+        // the prompt's code or Markdown punctuation while exporting it.
+        if (type === 'user' || !globalThis.GensparkMarkdown) return this.extractMessageContent(messageElement, type);
+        for (const selector of ['.markdown-viewer', '.markdown-body', '[data-testid="message-content"]', '.message-content', '.content', '.text-content']) {
+            const roots = Array.from(messageElement.querySelectorAll(selector));
+            const outer = roots.filter(element => !roots.some(other => other !== element && other.contains(element)));
+            const parts = outer.map(element => GensparkMarkdown.fromElement(element)).filter(Boolean);
+            if (parts.length) return parts.join('\n\n');
+        }
+        return GensparkMarkdown.fromElement(messageElement) || this.extractMessageContent(messageElement, type);
     }
 
     // סינון אלמנטי ממשק
@@ -224,32 +298,42 @@ class GensparkRTLToolbox {
     }
 
     // הורדת השיחה
-    async downloadConversation(format = 'both') {
+    async downloadConversation(format = 'md', language = 'en', labels = {}) {
         try {
             const conversations = this.extractConversation();
 
             if (conversations.length === 0) {
-                alert('לא נמצא תוכן שיחה להורדה');
-                return;
+                return { success: false, errorCode: 'noMessages' };
             }
 
             const title = this.getPageTitle();
             const timestamp = new Date().toISOString().split('T')[0];
+
+            if (format === 'md') {
+                await this.downloadMarkdown(conversations);
+            }
 
             if (format === 'json' || format === 'both') {
                 await this.downloadJSON(conversations, `${title}_${timestamp}.json`);
             }
 
             if (format === 'txt' || format === 'both') {
-                await this.downloadTXT(conversations, `${title}_${timestamp}.txt`);
+                await this.downloadTXT(conversations, `${title}_${timestamp}.txt`, language, labels);
             }
 
             console.log(`✅ השיחה הורדה בהצלחה (${conversations.length} הודעות)`);
+            return { success: true };
 
         } catch (error) {
             console.error('❌ שגיאה בהורדת השיחה:', error);
-            alert('שגיאה בהורדת השיחה: ' + error.message);
+            return { success: false, errorCode: 'downloadError' };
         }
+    }
+
+    async downloadMarkdown(conversations) {
+        const title = this.getPageTitle();
+        const content = GensparkMarkdown.renderConversation({ title, url: window.location.href, messages: conversations });
+        this.downloadBlob(new Blob([content], { type: 'text/markdown;charset=utf-8' }), GensparkMarkdown.filename(title));
     }
 
     async downloadJSON(conversations, filename) {
@@ -268,16 +352,16 @@ class GensparkRTLToolbox {
         this.downloadBlob(blob, filename);
     }
 
-    async downloadTXT(conversations, filename) {
-        let content = `שיחה מ-Genspark.ai\n`;
-        content += `כותרת: ${this.getPageTitle()}\n`;
+    async downloadTXT(conversations, filename, language = 'en', labels = {}) {
+        let content = `${labels.conversation || 'Conversation'} - Genspark.ai\n`;
+        content += `${labels.title || 'Title'}: ${this.getPageTitle()}\n`;
         content += `URL: ${window.location.href}\n`;
-        content += `תאריך: ${new Date().toLocaleString('he-IL')}\n`;
-        content += `מספר הודעות: ${conversations.length}\n`;
+        content += `${labels.date || 'Date'}: ${new Date().toLocaleString(language)}\n`;
+        content += `${labels.messageCount || 'Message count'}: ${conversations.length}\n`;
         content += `${'='.repeat(50)}\n\n`;
 
         conversations.forEach((msg, index) => {
-            const speaker = msg.type === 'user' ? '👤 משתמש' : '🤖 AI';
+            const speaker = msg.type === 'user' ? `👤 ${labels.user || 'User'}` : '🤖 AI';
             content += `${speaker} (${index + 1}):\n`;
             content += `${msg.content}\n\n`;
             content += `${'-'.repeat(30)}\n\n`;
@@ -303,16 +387,20 @@ class GensparkRTLToolbox {
     }
 
     getPageTitle() {
-        // נסה למצוא כותרת
-        const titleElements = this.findElements(this.selectors.chatTitle);
-
-        if (titleElements.length > 0) {
-            const title = titleElements[0].textContent.trim();
-            if (title) return title;
+        // Global h1/.title selectors also match the sidebar's "Home" label.
+        // The browser title contains the actual conversation title on SAS v2.
+        const generic = /^(?:genspark(?:\.ai)?|home|ホーム|דף הבית)$/i;
+        const pageTitle = (document.title || '').replace(/\s*[-|–—]\s*Genspark(?:\.ai)?\s*$/i, '').trim();
+        if (pageTitle && !generic.test(pageTitle)) return pageTitle;
+        const scope = document.querySelector('main, [role="main"], .conversation-wrapper, .chat-wrapper');
+        if (scope) {
+            for (const element of this.findElements(this.selectors.chatTitle, scope)) {
+                const title = (element.textContent || '').trim();
+                if (title && !generic.test(title)) return title;
+            }
         }
-
-        // חזור לכותרת הדף
-        return document.title || 'genspark_conversation';
+        const first = this.getMessageEntries().find(entry => entry.message.type === 'user')?.message.content;
+        return first ? first.replace(/\s+/g, ' ').slice(0, 80) : 'Genspark conversation';
     }
 
     // חיפוש בשיחות (בשיחה הנוכחית)
@@ -575,28 +663,15 @@ class GensparkRTLToolbox {
 
     // הדגשת הודעה בדף (בשיחה הנוכחית)
     highlightMessage(messageIndex) {
-        const conversations = this.extractConversation();
+        const entries = this.getMessageEntries();
 
-        if (messageIndex < 0 || messageIndex >= conversations.length) {
+        if (messageIndex < 0 || messageIndex >= entries.length) {
             console.error('אינדקס הודעה לא תקין:', messageIndex);
             return;
         }
 
-        const message = conversations[messageIndex];
-
-        // מצא את האלמנט המתאים בדף
-        const allMessages = [
-            ...this.findElements(this.selectors.userMessage),
-            ...this.findElements(this.selectors.assistantMessage)
-        ];
-
-        // מיין לפי סדר בדף
-        const sortedMessages = allMessages.sort((a, b) => {
-            return this.getElementOrder(a) - this.getElementOrder(b);
-        });
-
-        if (sortedMessages[messageIndex]) {
-            const element = sortedMessages[messageIndex];
+        if (entries[messageIndex]) {
+            const element = entries[messageIndex].element;
 
             // גלול אל ההודעה
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -641,13 +716,22 @@ class GensparkRTLToolbox {
 
             switch (request.action) {
                 case 'ping':
-                    sendResponse({ status: 'active', version: '2.5' });
+                    sendResponse({ status: 'active', version: chrome.runtime.getManifest().version, extractorRevision: 'dom-4-md' });
+                    break;
+
+                case 'getExtractionDiagnostics':
+                    try {
+                        sendResponse({ success: true, diagnostics: this.getExtractionDiagnostics() });
+                    } catch (error) {
+                        sendResponse({ success: false, error: error.message });
+                    }
                     break;
 
                 case 'download':
-                    this.downloadConversation(request.format || 'both');
-                    sendResponse({ success: true });
-                    break;
+                    this.downloadConversation(request.format || 'md', request.language, request.labels)
+                        .then(sendResponse)
+                        .catch(() => sendResponse({ success: false, errorCode: 'downloadError' }));
+                    return true;
 
                 case 'getStats':
                     const conversations = this.extractConversation();
@@ -693,7 +777,7 @@ class GensparkRTLToolbox {
                 case 'saveConversation':
                     this.saveCurrentConversation()
                         .then(result => sendResponse(result))
-                        .catch(error => sendResponse({ success: false, error: error.message }));
+                        .catch(error => sendResponse({ success: false, errorCode: error.message === 'NO_MESSAGES' ? 'noMessages' : 'saveError' }));
                     return true; // Keep connection open for async response
                     break;
 
@@ -718,14 +802,14 @@ class GensparkRTLToolbox {
             const messages = this.extractConversation();
 
             if (!messages || messages.length === 0) {
-                throw new Error('לא נמצאו הודעות לשמירה');
+                throw new Error('NO_MESSAGES');
             }
 
             // צור מזהה ייחודי לשיחה
             const conversationId = `conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
             // חלץ כותרת שיחה
-            const title = this.getConversationTitle() || `שיחה מ-${new Date().toLocaleDateString('he-IL')}`;
+            const title = this.getPageTitle();
 
             // צור אובייקט שיחה
             const conversation = {

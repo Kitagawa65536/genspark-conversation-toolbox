@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="he">
+<html dir="ltr" lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
-            direction: rtl;
+            direction: inherit;
             padding: 0;
             overflow-x: hidden;
         }
@@ -295,8 +295,8 @@
             border-radius: 6px;
             font-size: 14px;
             margin-bottom: 10px;
-            direction: rtl;
-            text-align: right;
+            direction: inherit;
+            text-align: start;
         }
 
         .search-input:focus {
@@ -548,8 +548,9 @@
         <div class="logo">💬 Genspark Conversation Manager</div>
         <div class="version">גרסה 2.6</div>
         <div class="language-selector">
-            <button class="lang-btn active" id="langHe">עברית</button>
+            <button class="lang-btn active" id="langJa">日本語</button>
             <button class="lang-btn" id="langEn">English</button>
+            <button class="lang-btn" id="langHe">עברית</button>
         </div>
     </div>
 
@@ -574,6 +575,8 @@
                 <div class="stat-label">שיחות שמורות</div>
             </div>
         </div>
+
+        <div id="extractionHint" class="error" style="display: none;"></div>
 
         <div class="search-container" id="searchContainer" style="display: none;">
             <div class="search-header">
@@ -612,6 +615,13 @@
                     צפה בשיחות שמורות
                 </button>
 
+                <label for="savedDownloadFormat" id="savedDownloadFormatLabel">保存済み会話の出力形式</label>
+                <select id="savedDownloadFormat" class="search-input">
+                    <option value="md" selected>Markdown (.md)</option>
+                    <option value="both">JSON + TXT</option>
+                    <option value="json">JSON</option>
+                    <option value="txt">TXT</option>
+                </select>
                 <button class="btn btn-secondary" id="downloadAllBtn" disabled>
                     <span class="icon">📦</span>
                     הורד את כל השיחות
@@ -634,7 +644,12 @@
                 חיפוש בשיחה
             </button>
 
-            <button class="btn btn-primary" id="downloadBtn" disabled>
+            <button class="btn btn-primary" id="downloadMdBtn" disabled>
+                <span class="icon">📥</span>
+                Markdown をダウンロード (.md)
+            </button>
+
+            <button class="btn btn-secondary" id="downloadBtn" disabled>
                 <span class="icon">📥</span>
                 הורד שיחה (JSON + TXT)
             </button>
@@ -653,6 +668,10 @@
                 <span class="icon">🔄</span>
                 רענן נתונים
             </button>
+            <button class="btn btn-secondary" id="diagnosticsBtn" disabled>
+                <span class="icon">🔎</span>
+                抽出診断を保存
+            </button>
         </div>
 
         <div class="loading" id="loading">
@@ -668,6 +687,7 @@
         <div>חיפוש, הורדה וניהול שיחות מתקדם</div>
     </div>
 
+    <script src="markdown.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
