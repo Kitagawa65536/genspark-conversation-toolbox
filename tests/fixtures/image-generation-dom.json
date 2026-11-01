@@ -1,0 +1,2617 @@
+{
+  "note": "Sanitized actual 2026-10-31 diagnostic subtree. All text is synthetic; original diagnostic omitted img src. Image URLs are synthetic annotations, not recovered data.",
+  "structure": {
+    "tag": "body",
+    "children": [
+      {
+        "tag": "div",
+        "class": "conversation-wrapper",
+        "children": [
+          {
+            "tag": "div",
+            "class": "conversation-statement user",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc user",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble image_url",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "image_url_wrapper",
+                                "children": [
+                                  {
+                                    "tag": "img",
+                                    "src": "https://www.genspark.ai/api/files/s/reference1"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "div",
+                    "class": "bubble image_url",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "image_url_wrapper",
+                                "children": [
+                                  {
+                                    "tag": "img",
+                                    "src": "https://www.genspark.ai/api/files/s/reference2"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "text-content",
+                                "children": [
+                                  {
+                                    "text": "question-1 "
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "div",
+                "class": "message-actions-user",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "message-action",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "message-action-icon icon p-[4px] hover:bg-[#F5F5F5] rounded-[6px]",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "div",
+                    "class": "message-action",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "message-action-icon icon p-[4px] hover:bg-[#F5F5F5] rounded-[6px]",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant"
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-1 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-1 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "ul",
+                                        "children": [
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-1 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-1 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-1 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-1 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-1 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-1 "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "inline-component",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "class": "moa-image-result",
+                                        "children": [
+                                          {
+                                            "tag": "div",
+                                            "class": "generated-images"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "inline-component",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "class": "moa-image-result",
+                                        "children": [
+                                          {
+                                            "tag": "div",
+                                            "class": "generated-images",
+                                            "children": [
+                                              {
+                                                "tag": "div",
+                                                "class": "image-container model-gpt-image-2-5",
+                                                "children": [
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "model-label",
+                                                    "children": [
+                                                      {
+                                                        "tag": "img",
+                                                        "class": "model-icon",
+                                                        "src": "https://cdn.example.test/model-icon.png"
+                                                      },
+                                                      {
+                                                        "text": "TOOL_CONTROL "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "number-label-wrapper"
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "edit-buttons-wrapper",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-edit-buttons",
+                                                        "children": [
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "main-image-item",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-generated",
+                                                        "children": [
+                                                          {
+                                                            "tag": "div",
+                                                            "class": "image-grid",
+                                                            "children": [
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated1?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated1?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "div",
+                                                                "class": "n-image",
+                                                                "role": "none",
+                                                                "children": [
+                                                                  {
+                                                                    "tag": "img",
+                                                                    "src": "https://www.genspark.ai/api/files/s/generated1?cache_control=3600"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "breathing-background"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-2 "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "view-tool-call-result",
+                                    "children": [
+                                      {
+                                        "tag": "button",
+                                        "class": "view-tool-call-result-button",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-3 "
+                                          },
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-3 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "text": "answer-3 "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "inline-component",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "class": "moa-image-result",
+                                        "children": [
+                                          {
+                                            "tag": "div",
+                                            "class": "generated-images",
+                                            "children": [
+                                              {
+                                                "tag": "div",
+                                                "class": "image-container model-gpt-image-2-5",
+                                                "children": [
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "model-label",
+                                                    "children": [
+                                                      {
+                                                        "tag": "img",
+                                                        "class": "model-icon",
+                                                        "src": "https://cdn.example.test/model-icon.png"
+                                                      },
+                                                      {
+                                                        "text": "TOOL_CONTROL "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "number-label-wrapper"
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "edit-buttons-wrapper",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-edit-buttons",
+                                                        "children": [
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "main-image-item",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-generated",
+                                                        "children": [
+                                                          {
+                                                            "tag": "div",
+                                                            "class": "image-grid",
+                                                            "children": [
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated2?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated2?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "div",
+                                                                "class": "n-image",
+                                                                "role": "none",
+                                                                "children": [
+                                                                  {
+                                                                    "tag": "img",
+                                                                    "src": "https://www.genspark.ai/api/files/s/generated2?cache_control=3600"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "breathing-background"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "view-tool-call-result",
+                                    "children": [
+                                      {
+                                        "tag": "button",
+                                        "class": "view-tool-call-result-button",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-4 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "ul",
+                                        "children": [
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-4 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-4 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-4 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-4 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-4 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "ul",
+                                        "children": [
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-4 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "tag": "div",
+                        "class": "buttons border-add",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "button thumb-button-inline clap",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "icon",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "tag": "div",
+                            "class": "button thumb-button-inline dislike",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "icon",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement user plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc user",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "pre",
+                                "children": [
+                                  {
+                                    "tag": "code",
+                                    "children": [
+                                      {
+                                        "text": "question-2 "
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "div",
+                "class": "message-actions-user",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "message-action",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "message-action-icon icon p-[4px] hover:bg-[#F5F5F5] rounded-[6px]",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "div",
+                    "class": "message-action",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "message-action-icon icon p-[4px] hover:bg-[#F5F5F5] rounded-[6px]",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant"
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-5 "
+                                          },
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-5 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "text": "answer-5 "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "inline-component",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "class": "moa-image-result",
+                                        "children": [
+                                          {
+                                            "tag": "div",
+                                            "class": "generated-images",
+                                            "children": [
+                                              {
+                                                "tag": "div",
+                                                "class": "image-container model-fal-ai-bytedance-seedream-v5-pro",
+                                                "children": [
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "model-label",
+                                                    "children": [
+                                                      {
+                                                        "tag": "img",
+                                                        "class": "model-icon",
+                                                        "src": "https://cdn.example.test/model-icon.png"
+                                                      },
+                                                      {
+                                                        "text": "TOOL_CONTROL "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "number-label-wrapper"
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "edit-buttons-wrapper",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-edit-buttons",
+                                                        "children": [
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "main-image-item",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-generated",
+                                                        "children": [
+                                                          {
+                                                            "tag": "div",
+                                                            "class": "image-grid",
+                                                            "children": [
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated3?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated3?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "div",
+                                                                "class": "n-image",
+                                                                "role": "none",
+                                                                "children": [
+                                                                  {
+                                                                    "tag": "img",
+                                                                    "src": "https://www.genspark.ai/api/files/s/generated3?cache_control=3600"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "breathing-background"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "view-tool-call-result",
+                                    "children": [
+                                      {
+                                        "tag": "button",
+                                        "class": "view-tool-call-result-button",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-6 "
+                                          },
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "text": "answer-6 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "ul",
+                                        "children": [
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-6 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-6 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-6 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-6 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "ul",
+                                        "children": [
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-6 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "tag": "div",
+                        "class": "buttons border-add",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "button thumb-button-inline clap",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "icon",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "tag": "div",
+                            "class": "button thumb-button-inline dislike",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "icon",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement user plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc user",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "pre",
+                                "children": [
+                                  {
+                                    "tag": "code",
+                                    "children": [
+                                      {
+                                        "text": "question-3 "
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tag": "div",
+                "class": "message-actions-user",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "message-action",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "message-action-icon icon p-[4px] hover:bg-[#F5F5F5] rounded-[6px]",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "div",
+                    "class": "message-action",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "message-action-icon icon p-[4px] hover:bg-[#F5F5F5] rounded-[6px]",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant"
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-7 "
+                                          },
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-7 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "text": "answer-7 "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tag": "div",
+                                "class": "inline-component",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "class": "moa-image-result",
+                                        "children": [
+                                          {
+                                            "tag": "div",
+                                            "class": "generated-images",
+                                            "children": [
+                                              {
+                                                "tag": "div",
+                                                "class": "image-container model-nano-banana-2-1",
+                                                "children": [
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "model-label",
+                                                    "children": [
+                                                      {
+                                                        "tag": "img",
+                                                        "class": "model-icon",
+                                                        "src": "https://cdn.example.test/model-icon.png"
+                                                      },
+                                                      {
+                                                        "text": "TOOL_CONTROL "
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "number-label-wrapper"
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "edit-buttons-wrapper",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-edit-buttons",
+                                                        "children": [
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "tag": "button",
+                                                            "class": "edit-button",
+                                                            "children": [
+                                                              {
+                                                                "tag": "span",
+                                                                "class": "button-label",
+                                                                "children": [
+                                                                  {
+                                                                    "text": "TOOL_CONTROL "
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "main-image-item",
+                                                    "children": [
+                                                      {
+                                                        "tag": "div",
+                                                        "class": "image-generated",
+                                                        "children": [
+                                                          {
+                                                            "tag": "div",
+                                                            "class": "image-grid",
+                                                            "children": [
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated4?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "img",
+                                                                "src": "https://www.genspark.ai/api/files/s/generated4?cache_control=3600"
+                                                              },
+                                                              {
+                                                                "tag": "div",
+                                                                "class": "n-image",
+                                                                "role": "none",
+                                                                "children": [
+                                                                  {
+                                                                    "tag": "img",
+                                                                    "src": "https://www.genspark.ai/api/files/s/generated4?cache_control=3600"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "tag": "div",
+                                                    "class": "breathing-background"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "using-tool-call",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "icon",
+                                    "children": []
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "name",
+                                    "children": [
+                                      {
+                                        "text": "TOOL_CONTROL "
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "arguments",
+                                    "children": [
+                                      {
+                                        "tag": "div",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tag": "div",
+                                    "class": "view-tool-call-result",
+                                    "children": [
+                                      {
+                                        "tag": "button",
+                                        "class": "view-tool-call-result-button",
+                                        "children": [
+                                          {
+                                            "text": "TOOL_CONTROL "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "div",
+            "class": "conversation-statement assistant plain-text",
+            "children": [
+              {
+                "tag": "div",
+                "class": "conversation-item-desc assistant",
+                "children": [
+                  {
+                    "tag": "div",
+                    "class": "bubble",
+                    "children": [
+                      {
+                        "tag": "div",
+                        "class": "desc",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "content",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "markdown-viewer",
+                                "children": [
+                                  {
+                                    "tag": "div",
+                                    "class": "answer-markdown",
+                                    "children": [
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-8 "
+                                          },
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "text": "answer-8 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "ul",
+                                        "children": [
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-8 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-8 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              },
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-8 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-8 "
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "tag": "strong",
+                                            "children": [
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "ul",
+                                        "children": [
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-8 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-8 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tag": "li",
+                                            "children": [
+                                              {
+                                                "tag": "strong",
+                                                "children": [
+                                                  {
+                                                    "text": "answer-8 "
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "text": "answer-8 "
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tag": "p",
+                                        "children": [
+                                          {
+                                            "text": "answer-8 "
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "tag": "div",
+                        "class": "buttons border-add",
+                        "children": [
+                          {
+                            "tag": "div",
+                            "class": "button thumb-button-inline clap",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "icon",
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "tag": "div",
+                            "class": "button thumb-button-inline dislike",
+                            "children": [
+                              {
+                                "tag": "div",
+                                "class": "icon",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

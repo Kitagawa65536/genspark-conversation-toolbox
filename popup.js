@@ -1,5 +1,5 @@
 /**
- * Genspark Conversation Manager v2.6 - Popup Script
+ * Genspark Conversation Manager v2.6.3 - Popup Script
  * לוגיקת ממשק המשתמש של התוסף
  */
 
@@ -213,7 +213,14 @@ const translations = {
 };
 
 Object.assign(translations.ja, {
-    downloadMdBtn: 'Markdown をダウンロード (.md)', savedDownloadFormat: '保存済み会話の出力形式',
+    downloadMdBtn: 'Markdown + 画像をダウンロード (.md)', savedDownloadFormat: '保存済み会話の出力形式',
+    downloadQueued: 'ダウンロードをキューに追加しました。完了を待っています...',
+    directorySettingsBtn: '保存先フォルダを設定',
+    savePageOpened: '専用の保存ページを開きました。フォルダの選択・許可・保存状況は、そのページで確認してください。まだ保存完了ではありません。',
+    openingDirectorySettings: '保存先フォルダの設定ページを開きました。',
+    directorySettingsError: '保存先フォルダの設定ページを開けませんでした',
+    convDownloadedWithImages: '画像 {count} 枚を保存しました。',
+    imageDownloadWarning: '画像 {count} 枚を保存できませんでした。元の画像リンクを保持しています。',
     diagnosticsBtn: '抽出診断を保存', collectingDiagnostics: 'ページ構造を確認しています...',
     diagnosticsSaved: '診断ファイルを保存しました', diagnosticsError: '診断ファイルを保存できませんでした',
     extractionHint: '会話を検出できません。会話が表示されている場合は「抽出診断を保存」で診断ファイルを取得してください。',
@@ -224,7 +231,14 @@ Object.assign(translations.ja, {
     conversation: '会話', savedAt: '保存日時', messageCount: 'メッセージ数', title: 'タイトル', date: '日時'
 });
 Object.assign(translations.en, {
-    downloadMdBtn: 'Download Markdown (.md)', savedDownloadFormat: 'Saved conversation export format',
+    downloadMdBtn: 'Download Markdown + images (.md)', savedDownloadFormat: 'Saved conversation export format',
+    downloadQueued: 'Download queued; waiting for completion...',
+    directorySettingsBtn: 'Set export folder',
+    savePageOpened: 'The dedicated save page is open. Choose or authorize a folder and check the result there; saving is not complete yet.',
+    openingDirectorySettings: 'Export-folder settings opened.',
+    directorySettingsError: 'Could not open export-folder settings',
+    convDownloadedWithImages: '{count} image(s) saved.',
+    imageDownloadWarning: '{count} image(s) could not be saved. Original image links were preserved.',
     diagnosticsBtn: 'Save extraction diagnostics', collectingDiagnostics: 'Inspecting page structure...',
     diagnosticsSaved: 'Diagnostic file saved', diagnosticsError: 'Could not save diagnostic file',
     extractionHint: 'No messages detected. If the conversation is visible, use “Save extraction diagnostics” to collect a diagnostic file.',
@@ -235,7 +249,14 @@ Object.assign(translations.en, {
     conversation: 'Conversation', savedAt: 'Saved at', messageCount: 'Message count', title: 'Title', date: 'Date'
 });
 Object.assign(translations.he, {
-    downloadMdBtn: 'הורד Markdown (.md)', savedDownloadFormat: 'פורמט ייצוא שיחות שמורות',
+    downloadMdBtn: 'הורד Markdown + תמונות (.md)', savedDownloadFormat: 'פורמט ייצוא שיחות שמורות',
+    downloadQueued: 'ההורדה נוספה לתור; ממתין לסיום...',
+    directorySettingsBtn: 'הגדרת תיקיית שמירה',
+    savePageOpened: 'דף השמירה הייעודי נפתח. בחרו או אשרו תיקייה ובדקו שם את התוצאה; השמירה עדיין לא הושלמה.',
+    openingDirectorySettings: 'הגדרות תיקיית השמירה נפתחו.',
+    directorySettingsError: 'לא ניתן לפתוח את הגדרות תיקיית השמירה',
+    convDownloadedWithImages: 'נשמרו {count} תמונות.',
+    imageDownloadWarning: 'לא ניתן לשמור {count} תמונות. הקישורים המקוריים לתמונות נשמרו.',
     diagnosticsBtn: 'שמור אבחון חילוץ', collectingDiagnostics: 'בודק את מבנה הדף...',
     diagnosticsSaved: 'קובץ האבחון נשמר', diagnosticsError: 'לא ניתן לשמור את קובץ האבחון',
     extractionHint: 'לא זוהו הודעות. אם השיחה מוצגת, השתמשו בשמירת אבחון חילוץ כדי ליצור קובץ אבחון.',
@@ -338,7 +359,7 @@ class PopupManager {
         // Update header
         const versionText = document.querySelector('.version');
         if (versionText) {
-            versionText.textContent = `${this.t('version')} 2.6`;
+            versionText.textContent = `${this.t('version')} 2.6.3`;
         }
 
         // Update stats labels
@@ -385,6 +406,9 @@ class PopupManager {
 
         if (this.elements.downloadMdBtn) {
             this.elements.downloadMdBtn.innerHTML = `<span class="icon">📥</span> ${this.t('downloadMdBtn')}`;
+        }
+        if (this.elements.directorySettingsBtn) {
+            this.elements.directorySettingsBtn.innerHTML = `<span class="icon">📁</span> ${this.t('directorySettingsBtn')}`;
         }
 
         if (this.elements.downloadBtn) {
@@ -447,6 +471,7 @@ class PopupManager {
             messageCount: document.getElementById('messageCount'),
             savedCount: document.getElementById('savedCount'),
             downloadMdBtn: document.getElementById('downloadMdBtn'),
+            directorySettingsBtn: document.getElementById('directorySettingsBtn'),
             downloadBtn: document.getElementById('downloadBtn'),
             savedDownloadFormat: document.getElementById('savedDownloadFormat'),
             savedDownloadFormatLabel: document.getElementById('savedDownloadFormatLabel'),
@@ -479,6 +504,9 @@ class PopupManager {
     }
 
     attachEventListeners() {
+        this.elements.directorySettingsBtn?.addEventListener('click', () => {
+            this.openDirectorySettings();
+        });
         this.elements.downloadMdBtn?.addEventListener('click', () => {
             this.downloadConversation('md');
         });
@@ -570,6 +598,13 @@ class PopupManager {
         });
     }
 
+    isGensparkUrl(value) {
+        try {
+            const url = new URL(value);
+            return url.protocol === 'https:' && /(?:^|\.)genspark\.ai$/i.test(url.hostname);
+        } catch { return false; }
+    }
+
     async checkConnection() {
         try {
             this.showLoading(true);
@@ -584,7 +619,7 @@ class PopupManager {
             }
 
             // בדוק אם זה דף של Genspark
-            if (!this.currentTab.url?.includes('genspark.ai')) {
+            if (!this.isGensparkUrl(this.currentTab.url)) {
                 this.isConnected = false;
                 this.updateStatus('⚠️', this.t('notOnGenspark'), this.t('onlyOnGenspark'));
                 this.setButtonsEnabled(false);
@@ -645,6 +680,8 @@ class PopupManager {
 
     async injectContentScript() {
         try {
+            const tab = await chrome.tabs.get(this.currentTab.id);
+            if (!this.isGensparkUrl(tab.url)) throw new Error(this.t('onlyOnGenspark'));
             await chrome.scripting.executeScript({
                 target: { tabId: this.currentTab.id },
                 files: ['markdown.js', 'content.js']
@@ -691,6 +728,15 @@ class PopupManager {
         }
     }
 
+    async openDirectorySettings() {
+        try {
+            await chrome.tabs.create({ url: chrome.runtime.getURL('export.html') });
+            this.showMessage(this.t('openingDirectorySettings'), 'info');
+        } catch (error) {
+            this.showMessage(this.t('directorySettingsError') + ': ' + error.message, 'error');
+        }
+    }
+
     async downloadConversation(format = 'md') {
         try {
             if (!this.isConnected) {
@@ -705,13 +751,25 @@ class PopupManager {
                 messageCount: this.t('messageCount'), user: this.t('user')
             } });
 
-            if (response && response.success) {
-                this.showMessage('✅ ' + this.t('convDownloaded'), 'success');
+            if (response?.savePageOpened) {
+                this.showMessage(this.t('savePageOpened'), 'info');
+            } else if (response?.queued) {
+                this.showMessage(this.t('downloadQueued'), 'info');
+            } else if (response?.success) {
+                const details = [this.t('convDownloaded')];
+                if (response.imageCount > 0) {
+                    details.push(this.t('convDownloadedWithImages', { count: response.imageCount }));
+                }
+                const hasFailedImages = response.failedImageCount > 0;
+                if (hasFailedImages) {
+                    details.push(this.t('imageDownloadWarning', { count: response.failedImageCount }));
+                }
+                this.showMessage((hasFailedImages ? '⚠️ ' : '✅ ') + details.join(' '), hasFailedImages ? 'warning' : 'success');
 
                 // רענן נתונים
                 setTimeout(() => this.loadStats(), 1000);
             } else {
-                throw new Error(response?.errorCode ? this.t(response.errorCode) : this.t('downloadError'));
+                throw new Error(response?.errorDetail || (response?.errorCode ? this.t(response.errorCode) : this.t('downloadError')));
             }
 
         } catch (error) {
@@ -1000,12 +1058,13 @@ class PopupManager {
         this.elements.message.className = type;
         this.elements.message.style.display = 'block';
 
-        // הסתר הודעה אחרי 3 שניות
-        setTimeout(() => {
-            if (this.elements.message) {
-                this.elements.message.style.display = 'none';
-            }
-        }, 3000);
+        clearTimeout(this.messageTimer);
+        // Keep failures visible so their actual cause can be copied/reported.
+        if (type !== 'error' && type !== 'warning') {
+            this.messageTimer = setTimeout(() => {
+                if (this.elements.message) this.elements.message.style.display = 'none';
+            }, 3000);
+        }
     }
 
     // Conversation Manager Functions
@@ -1299,4 +1358,4 @@ window.addEventListener('error', (event) => {
 });
 
 // Log לצורך דיבוג
-console.log('🎮 Genspark Conversation Manager Popup v2.6 נטען');
+console.log('🎮 Genspark Conversation Manager Popup v2.6.3 נטען');

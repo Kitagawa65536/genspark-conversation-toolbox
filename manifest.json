@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Genspark Conversation Manager",
-  "version": "2.6",
+  "version": "2.6.3",
   "description": "Advanced Genspark conversation management - Download, search, save and manage conversations",
 
   "permissions": [
@@ -13,8 +13,8 @@
   ],
 
   "host_permissions": [
-    "https://*.genspark.ai/*",
-    "https://genspark.ai/*"
+    "https://*/*",
+    "http://*/*"
   ],
 
   "content_scripts": [{

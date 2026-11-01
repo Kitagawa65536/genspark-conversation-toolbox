@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Markdown・画像の保存 — Genspark Conversation Manager</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; padding: 28px 18px; background: light-dark(#f5f6fa, #17191f); color: light-dark(#202635, #eef0f6); }
+    main { max-width: 760px; margin: auto; }
+    h1 { font-size: 1.55rem; margin-bottom: 10px; }
+    h2 { font-size: 1.1rem; margin-top: 0; }
+    .card { padding: 22px; margin-top: 18px; border: 1px solid light-dark(#dce1ed, #414859); border-radius: 14px; background: light-dark(#fff, #242833); }
+    p { line-height: 1.7; }
+    .muted { color: light-dark(#596579, #bbc3d4); font-size: .93rem; }
+    .buttons { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+    button { padding: 11px 16px; font: inherit; border-radius: 8px; border: 1px solid light-dark(#bec8db, #667187); cursor: pointer; }
+    button.primary { background: #315de0; border-color: #315de0; color: #fff; }
+    button:disabled { opacity: .55; cursor: wait; }
+    [hidden] { display: none !important; }
+    #status { white-space: pre-wrap; overflow-wrap: anywhere; padding: 14px; border-radius: 9px; background: light-dark(#edf3ff, #29354e); }
+    #status[data-kind="error"] { background: light-dark(#fff0f0, #4b292d); }
+    #status[data-kind="warning"] { background: light-dark(#fff7dd, #493e27); }
+    #status[data-kind="success"] { background: light-dark(#eaf8ee, #244231); }
+    #result { white-space: pre-wrap; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Markdown・画像の保存</h1>
+  <p id="pageDescription">保存先フォルダを一度選ぶと、次回以降もこの拡張機能が覚えます。フォルダへの書き込み許可はブラウザが管理します。</p>
+  <section class="card" aria-labelledby="destinationHeading">
+    <h2 id="destinationHeading">保存先フォルダ</h2>
+    <p id="destinationMode" class="muted"></p>
+    <p id="folderName">フォルダを読み込み中…</p>
+    <div class="buttons">
+      <button id="chooseFolder" type="button" class="primary" disabled>フォルダを選択/変更</button>
+      <button id="forgetFolder" type="button" disabled>保存先を忘れる</button>
+    </div>
+    <p class="muted">ObsidianのVaultなど、保存したいフォルダそのものを選んでください。Markdownと同名の「-assets」フォルダを、その中に保存します。</p>
+  </section>
+  <section class="card" aria-labelledby="jobHeading">
+    <h2 id="jobHeading">保存状況</h2>
+    <p id="jobTitle" hidden></p>
+    <p id="status" role="status" aria-live="polite">読み込み中…</p>
+    <div class="buttons">
+      <button id="grantPermission" type="button" class="primary" hidden>許可して保存</button>
+      <button id="retryExport" type="button" hidden>保存を再試行</button>
+    </div>
+    <div id="result" hidden></div>
+    <p class="muted">保存中はこのタブを閉じないでください。途中で閉じると一部のファイルが残る場合があります。残ったファイルを自動削除することはありません。</p>
+  </section>
+  <section class="card" aria-labelledby="downloadsHeading">
+    <h2 id="downloadsHeading">通常のダウンロードを使う</h2>
+    <p class="muted">フォルダ選択に対応していないブラウザや、従来のダウンロード方式を使いたい場合だけ切り替えてください。保存に失敗しても、自動的にDownloadsへ切り替えることはありません。</p>
+    <button id="useDownloads" type="button" disabled>通常のDownloads保存に戻す</button>
+  </section>
+</main>
+<script src="markdown.js"></script>
+<script src="bundle-export.js"></script>
+<script src="directory-store.js"></script>
+<script src="directory-writer.js"></script>
+<script src="export-page.js"></script>
+</body>
+</html>

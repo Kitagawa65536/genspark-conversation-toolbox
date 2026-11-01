@@ -229,6 +229,16 @@
             text-align: center;
         }
 
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 14px;
+            text-align: center;
+        }
+
         .loading {
             display: none;
             text-align: center;
@@ -546,7 +556,7 @@
 <body>
     <div class="header">
         <div class="logo">💬 Genspark Conversation Manager</div>
-        <div class="version">גרסה 2.6</div>
+        <div class="version">גרסה 2.6.3</div>
         <div class="language-selector">
             <button class="lang-btn active" id="langJa">日本語</button>
             <button class="lang-btn" id="langEn">English</button>
@@ -577,6 +587,13 @@
         </div>
 
         <div id="extractionHint" class="error" style="display: none;"></div>
+
+        <div class="button-group">
+            <button class="btn btn-secondary" id="directorySettingsBtn">
+                <span class="icon">📁</span>
+                保存先フォルダを設定
+            </button>
+        </div>
 
         <div class="search-container" id="searchContainer" style="display: none;">
             <div class="search-header">
@@ -646,7 +663,7 @@
 
             <button class="btn btn-primary" id="downloadMdBtn" disabled>
                 <span class="icon">📥</span>
-                Markdown をダウンロード (.md)
+                Markdown + 画像をダウンロード (.md)
             </button>
 
             <button class="btn btn-secondary" id="downloadBtn" disabled>

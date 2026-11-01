@@ -1,5 +1,5 @@
 /**
- * Genspark Conversation Manager v2.6 - Content Script
+ * Genspark Conversation Manager v2.6.3 - Content Script
  * ניהול מתקדם של שיחות Genspark - הורדה, חיפוש, שמירה וניהול שיחות
  */
 
@@ -79,7 +79,7 @@ class GensparkRTLToolbox {
     async init() {
         if (this.isInitialized) return;
 
-        console.log('🚀 Genspark Conversation Manager v2.6 מתחיל...');
+        console.log('🚀 Genspark Conversation Manager v2.6.3 מתחיל...');
 
         // המתן לטעינת הדף
         if (document.readyState === 'loading') {
@@ -95,7 +95,7 @@ class GensparkRTLToolbox {
         this.setupMessageListeners();
         this.observeChanges();
 
-        console.log('✅ Genspark Conversation Manager v2.6 הופעל בהצלחה');
+        console.log('✅ Genspark Conversation Manager v2.6.3 הופעל בהצלחה');
     }
 
     // זיהוי הודעות עם סלקטורים מרובים
@@ -129,33 +129,81 @@ class GensparkRTLToolbox {
             ...this.findElements(this.selectors.userMessage).map(element => ({ element, type: 'user' })),
             ...this.findElements(this.selectors.assistantMessage).map(element => ({ element, type: 'assistant' }))
         ];
-
-        // A message may match several selectors at different nesting levels.
-        // Keep the outer message container, not its matching descendants.
-        const entries = candidates.filter((entry, index) => !candidates.some((other, otherIndex) =>
-            otherIndex !== index && other.type === entry.type && other.element !== entry.element &&
-            other.element.contains(entry.element)
-        ));
+        // Prefer actual message rows over generic wrappers/badges. SAS v2's
+        // outer assistant row owns its nested .wb-asst-block; legacy image
+        // conversations use .conversation-item-desc inside .conversation-statement.
+        const priority = element => {
+            const classes = new Set((element.getAttribute?.('class') || '').split(/\s+/));
+            if (classes.has('conversation-item-desc') || classes.has('wb-msg-user-row')) return 0;
+            if (classes.has('sas-asst-msg')) return 1;
+            if (classes.has('wb-asst-block')) return 2;
+            if (classes.has('conversation-statement')) return 3;
+            return 4;
+        };
+        const entries = candidates.filter(entry => !candidates.some(other => {
+            if (other.element === entry.element) return false;
+            // An authoritative nested row replaces its layout wrapper, even if
+            // the wrapper has been labelled with the wrong speaker.
+            if (entry.element.contains(other.element) && priority(other.element) < priority(entry.element)) return true;
+            return other.type === entry.type && other.element.contains(entry.element) &&
+                priority(other.element) <= priority(entry.element);
+        }));
         entries.sort((a, b) => {
             const position = a.element.compareDocumentPosition(b.element);
-            return position & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : position & Node.DOCUMENT_POSITION_PRECEDING ? 1 : 0;
+            return position & 4 ? -1 : position & 2 ? 1 : 0;
         });
-
-        return entries.map(({ element, type }, index) => ({
-            element,
-            message: {
-                type,
-                content: this.extractMessageContent(element, type),
-                markdown: this.extractMessageMarkdown(element, type),
-                timestamp: this.extractTimestamp(element),
-                order: index,
-                index
-            }
-        })).filter(entry => entry.message.content);
+        return entries.map(({ element, type }, index) => {
+            const markdown = this.extractMessageMarkdown(element, type);
+            const images = type === 'assistant' ? this.extractGeneratedImages(element) : [];
+            return { element, message: {
+                type, content: this.extractMessageContent(element, type), markdown, images,
+                timestamp: this.extractTimestamp(element), order: index, index
+            } };
+        }).filter(entry => entry.message.content || entry.message.markdown || entry.message.images.length);
     }
 
     extractConversation() {
         return this.getMessageEntries().map(entry => entry.message);
+    }
+
+    imageSource(image) {
+        const source = image.getAttribute('data-original') || image.getAttribute('data-src') ||
+            image.currentSrc || image.getAttribute('src') || '';
+        try {
+            const url = new URL(source, window.location.href);
+            return source && ['https:', 'http:'].includes(url.protocol) ? url.href : '';
+        } catch { return ''; }
+    }
+
+    extractGeneratedImages(element) {
+        const images = [], seen = new Set();
+        // Each grid has blurred/background copies of the same picture. Naive UI's
+        // .n-image holds the real image, not the decoration or the model icon.
+        for (const grid of element.querySelectorAll('.image-grid')) {
+            const displayed = Array.from(grid.querySelectorAll('.n-image img'));
+            const nodes = displayed.length ? displayed : Array.from(grid.querySelectorAll('img'));
+            for (const image of nodes) {
+                const url = this.imageSource(image);
+                if (!url || seen.has(url)) continue;
+                seen.add(url);
+                images.push({ url });
+            }
+        }
+        return images;
+    }
+
+    async getExportDiagnostics() {
+        if (this.lastExport?.jobId) {
+            try {
+                const job = await chrome.runtime.sendMessage({ action: 'getDirectoryExportStatus', jobId: this.lastExport.jobId });
+                if (job?.result) {
+                    this.lastExport = { ...this.lastExport, ...job.result, queued: false,
+                        status: job.result.markdownSaved ? (job.result.failed?.length ? 'partial' : 'completed') : 'failed',
+                        exportPageStatus: job.status };
+                } else if (job?.status) this.lastExport.exportPageStatus = job.status;
+            } catch (error) { this.lastExport.statusLookupError = String(error.message || error); }
+        }
+        return this.getExtractionDiagnostics();
     }
 
     getExtractionDiagnostics() {
@@ -165,8 +213,11 @@ class GensparkRTLToolbox {
         // arbitrary data attributes (which may contain application state).
         const attributes = ['id', 'class', 'role', 'data-testid', 'data-role', 'data-message-type', 'data-message-author-role'];
         const skipTags = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'INPUT', 'TEXTAREA', 'SELECT', 'SVG']);
+        // Image sources matter for export (which illustration belongs to which
+        // turn); a data: URI is skipped to keep the file small.
+        const urlAttributes = ['src', 'data-src', 'data-original', 'srcset'];
         const selectors = [...this.selectors.userMessage, ...this.selectors.assistantMessage,
-            '.markdown-viewer', '.markdown-body', 'iframe'];
+            '.markdown-viewer', '.markdown-body', 'iframe', 'img'];
         const frames = [];
         const visit = (node, depth) => {
             if (state.nodes >= limits.nodes || depth > limits.depth) {
@@ -183,6 +234,12 @@ class GensparkRTLToolbox {
             for (const name of attributes) {
                 const value = node.getAttribute(name);
                 if (value) result[name] = value.slice(0, 500);
+            }
+            if (node.tagName === 'IMG') {
+                for (const name of urlAttributes) {
+                    const value = node.getAttribute(name);
+                    if (value && value.length <= 1000 && !/^data:/i.test(value)) result[name] = value;
+                }
             }
             const children = [];
             for (const child of node.childNodes) {
@@ -219,7 +276,9 @@ class GensparkRTLToolbox {
         return {
             schemaVersion: 1,
             extensionVersion: chrome.runtime.getManifest().version,
-            extractorRevision: 'dom-4-md',
+            extractorRevision: 'dom-6-directory',
+            lastExport: this.lastExport || null,
+            userAgent: globalThis.navigator?.userAgent || '',
             capturedAt: new Date().toISOString(),
             url: window.location.href,
             title: document.title,
@@ -234,30 +293,48 @@ class GensparkRTLToolbox {
         };
     }
 
-    // חילוץ תוכן מהודעה בודדת
+    // Read all prompt bubbles, not just the first attachment/text container.
     extractMessageContent(messageElement, type) {
         const selectors = type === 'user'
-            ? ['.wb-msg-user-text', '.content code', '[data-testid="message-content"]', '.message-content', '.content', '.text-content']
-            : ['.markdown-viewer', '.markdown-body', '[data-testid="message-content"]', '.message-content', '.content', '.text-content'];
+            ? ['.wb-msg-user-text', '.text-content', '.content code', '[data-testid="message-content"]', '.message-content']
+            : ['.markdown-viewer', '.markdown-body', '[data-testid="message-content"]', '.message-content', '.text-content'];
         for (const selector of selectors) {
-            const element = messageElement.querySelector(selector);
-            const text = element && (element.innerText || element.textContent || '').trim();
-            if (text) return text;
+            const matches = Array.from(messageElement.querySelectorAll(selector));
+            const first = matches.length ? null : messageElement.querySelector(selector);
+            const roots = matches.length ? matches : first ? [first] : [];
+            const outer = roots.filter(node => !roots.some(other => other !== node && other.contains(node)));
+            const parts = outer.map(node => (node.innerText || node.textContent || '').trim()).filter(Boolean);
+            if (parts.length) return parts.join('\n\n');
         }
-        return this.filterUIElements(messageElement.innerText || messageElement.textContent || '').trim();
+        // Legacy assistant .content includes tool calls and image controls. These
+        // are not conversation text. Non-tool legacy content still works.
+        const content = messageElement.querySelector('.content');
+        if (type === 'assistant' && content?.querySelector('.using-tool-call, .inline-component')) return '';
+        if (type === 'assistant' && messageElement.querySelector('.generated-images, .using-tool-call')) return '';
+        const value = content ? (content.innerText || content.textContent || '') :
+            (messageElement.innerText || messageElement.textContent || '');
+        return this.filterUIElements(value).trim();
     }
 
     extractMessageMarkdown(messageElement, type) {
-        // User prompts are plain text, not rendered Markdown. Do not reinterpret
-        // the prompt's code or Markdown punctuation while exporting it.
-        if (type === 'user' || !globalThis.GensparkMarkdown) return this.extractMessageContent(messageElement, type);
-        for (const selector of ['.markdown-viewer', '.markdown-body', '[data-testid="message-content"]', '.message-content', '.content', '.text-content']) {
+        if (type === 'user') {
+            const prompt = this.extractMessageContent(messageElement, type);
+            // Preserve reference attachments as original links, like the sample;
+            // they are not generated illustrations in the downloaded appendix.
+            const sources = [...new Set(Array.from(messageElement.querySelectorAll('.image_url_wrapper img'))
+                .map(image => this.imageSource(image)).filter(Boolean))];
+            const references = sources.map((url, index) => `[Reference image ${index + 1}](<${url.replace(/[<>\s]/g, encodeURIComponent)}>)`);
+            return [...references, prompt].filter(Boolean).join('\n\n');
+        }
+        if (!globalThis.GensparkMarkdown) return this.extractMessageContent(messageElement, type);
+        for (const selector of ['.markdown-viewer', '.markdown-body', '[data-testid="message-content"]', '.message-content', '.text-content']) {
             const roots = Array.from(messageElement.querySelectorAll(selector));
-            const outer = roots.filter(element => !roots.some(other => other !== element && other.contains(element)));
-            const parts = outer.map(element => GensparkMarkdown.fromElement(element)).filter(Boolean);
+            const outer = roots.filter(node => !roots.some(other => other !== node && other.contains(node)));
+            const parts = outer.map(node => GensparkMarkdown.fromElement(node, window.location?.href)).filter(Boolean);
             if (parts.length) return parts.join('\n\n');
         }
-        return GensparkMarkdown.fromElement(messageElement) || this.extractMessageContent(messageElement, type);
+        if (!this.extractMessageContent(messageElement, type)) return '';
+        return GensparkMarkdown.fromElement(messageElement, window.location?.href) || this.extractMessageContent(messageElement, type);
     }
 
     // סינון אלמנטי ממשק
@@ -297,36 +374,26 @@ class GensparkRTLToolbox {
         return rect.top + (rect.left * 0.001); // מיון לפי מיקום בדף
     }
 
-    // הורדת השיחה
     async downloadConversation(format = 'md', language = 'en', labels = {}) {
         try {
+            this.lastExport = { format, startedAt: new Date().toISOString(), status: 'running' };
             const conversations = this.extractConversation();
-
-            if (conversations.length === 0) {
+            if (!conversations.length) {
+                this.lastExport = { ...this.lastExport, status: 'failed', error: 'No messages found' };
                 return { success: false, errorCode: 'noMessages' };
             }
-
             const title = this.getPageTitle();
-            const timestamp = new Date().toISOString().split('T')[0];
-
-            if (format === 'md') {
-                await this.downloadMarkdown(conversations);
-            }
-
-            if (format === 'json' || format === 'both') {
-                await this.downloadJSON(conversations, `${title}_${timestamp}.json`);
-            }
-
-            if (format === 'txt' || format === 'both') {
-                await this.downloadTXT(conversations, `${title}_${timestamp}.txt`, language, labels);
-            }
-
-            console.log(`✅ השיחה הורדה בהצלחה (${conversations.length} הודעות)`);
+            const stamp = new Date().toISOString().split('T')[0];
+            if (format === 'md') return await this.exportBundle(conversations);
+            if (format === 'json' || format === 'both') await this.downloadJSON(conversations, title + '_' + stamp + '.json');
+            if (format === 'txt' || format === 'both') await this.downloadTXT(conversations, title + '_' + stamp + '.txt', language, labels);
+            this.lastExport = { ...this.lastExport, status: 'completed', finishedAt: new Date().toISOString() };
             return { success: true };
-
         } catch (error) {
-            console.error('❌ שגיאה בהורדת השיחה:', error);
-            return { success: false, errorCode: 'downloadError' };
+            console.error('Conversation export failed:', error);
+            const errorDetail = String(error.message || error);
+            this.lastExport = { ...this.lastExport, status: 'failed', error: errorDetail, finishedAt: new Date().toISOString() };
+            return { success: false, errorCode: 'downloadError', errorDetail };
         }
     }
 
@@ -334,6 +401,25 @@ class GensparkRTLToolbox {
         const title = this.getPageTitle();
         const content = GensparkMarkdown.renderConversation({ title, url: window.location.href, messages: conversations });
         this.downloadBlob(new Blob([content], { type: 'text/markdown;charset=utf-8' }), GensparkMarkdown.filename(title));
+    }
+
+    hasImages(conversations) {
+        return conversations.some(message => message.images?.length || /!\[[^\]]*\]\(/.test(message.markdown || ''));
+    }
+
+    async exportBundle(conversations) {
+        const response = await chrome.runtime.sendMessage({
+            action: 'exportMarkdownBundle', title: this.getPageTitle(), url: window.location.href,
+            messages: conversations, images: conversations.flatMap(message => message.images || [])
+        });
+        this.lastExport = { ...this.lastExport, ...response,
+            status: response?.queued ? 'waiting-for-save-page' : response?.markdownSaved ? (response.failed?.length ? 'partial' : 'completed') : 'failed',
+            finishedAt: new Date().toISOString() };
+        if (response?.queued) return response;
+        // No "success" until the writer has observed completed writes.
+        if (!response?.markdownSaved) throw new Error(response?.error || 'Bundle export failed');
+        return { ...response, success: true, imageCount: response.downloadedImages || 0,
+            failedImageCount: response.failed?.length || 0 };
     }
 
     async downloadJSON(conversations, filename) {
@@ -716,16 +802,14 @@ class GensparkRTLToolbox {
 
             switch (request.action) {
                 case 'ping':
-                    sendResponse({ status: 'active', version: chrome.runtime.getManifest().version, extractorRevision: 'dom-4-md' });
+                    sendResponse({ status: 'active', version: chrome.runtime.getManifest().version, extractorRevision: 'dom-6-directory' });
                     break;
 
                 case 'getExtractionDiagnostics':
-                    try {
-                        sendResponse({ success: true, diagnostics: this.getExtractionDiagnostics() });
-                    } catch (error) {
-                        sendResponse({ success: false, error: error.message });
-                    }
-                    break;
+                    this.getExportDiagnostics()
+                        .then(diagnostics => sendResponse({ success: true, diagnostics }))
+                        .catch(error => sendResponse({ success: false, error: error.message }));
+                    return true;
 
                 case 'download':
                     this.downloadConversation(request.format || 'md', request.language, request.labels)
@@ -868,6 +952,6 @@ if (typeof window !== 'undefined') {
     // וודא שהתוסף לא רץ כבר
     if (!window.gensparkConversationManager) {
         window.gensparkConversationManager = new GensparkRTLToolbox();
-        console.log('🎯 Genspark Conversation Manager v2.6 אותחל');
+        console.log('🎯 Genspark Conversation Manager v2.6.3 אותחל');
     }
 }

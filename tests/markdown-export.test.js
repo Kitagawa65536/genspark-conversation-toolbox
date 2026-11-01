@@ -76,11 +76,15 @@ test('browser conversation title takes priority over Home navigation and filenam
     assert.ok(!/[<>:"/\\|?*]/.test(filename));
 });
 
-test('MD is the default download format and uses Markdown MIME and a dated title', async () => {
+test('MD defaults to folder-aware export even without images; standalone renderer keeps Markdown MIME', async () => {
     const { toolbox } = setup();
+    let exported;
+    toolbox.exportBundle = async messages => { exported = messages; return { queued: true }; };
+    assert.equal((await toolbox.downloadConversation()).queued, true);
+    assert.equal(exported.length, 2);
     const downloads = [];
     toolbox.downloadBlob = (blob, filename) => downloads.push({ blob, filename });
-    assert.equal((await toolbox.downloadConversation()).success, true);
+    await toolbox.downloadMarkdown(exported);
     assert.equal(downloads.length, 1);
     assert.equal(downloads[0].blob.type, 'text/markdown;charset=utf-8');
     assert.match(downloads[0].filename, /^\d{4}-\d{2}-\d{2}-会話タイトル\.md$/);

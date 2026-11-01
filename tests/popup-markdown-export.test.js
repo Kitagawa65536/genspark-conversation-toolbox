@@ -120,10 +120,81 @@ test('saved export reports failure and releases object URLs when download is rej
     assert.equal(revoked.length, 1);
 });
 
+test('Japanese language control remains wired and image completion/warnings are localized', async () => {
+    const env = setup();
+    const selected = [];
+    env.manager.setLanguage = language => selected.push(language);
+    env.manager.attachEventListeners();
+    env.nodes.langJa.listeners.click();
+    assert.deepEqual(selected, ['ja']);
+    assert.ok(!env.nodes.langUi);
+    for (const language of ['ja', 'en', 'he']) {
+        const { manager, messages } = setup();
+        manager.currentLang = language;
+        manager.isConnected = true;
+        let complete;
+        manager.sendMessageToTab = () => new Promise(resolve => { complete = resolve; });
+        const pending = manager.downloadConversation();
+        assert.equal(messages.at(-1).type, 'info');
+        complete({ success: true, imageCount: 3, failedImageCount: 1 });
+        await pending;
+        assert.equal(messages.at(-1).type, 'warning');
+        assert.ok(messages.at(-1).text.includes('3'));
+        assert.ok(messages.at(-1).text.includes('1'));
+        assert.ok(!messages.at(-1).text.includes('imageDownloadWarning'));
+        manager.sendMessageToTab = async () => ({ success: true, imageCount: 4, failedImageCount: 0 });
+        await manager.downloadConversation();
+        assert.equal(messages.at(-1).type, 'success');
+        assert.ok(messages.at(-1).text.includes('4'));
+    }
+});
+
+test('exact download error is shown and stays visible instead of being replaced/auto-hidden', async () => {
+    const { manager, context, messages, nodes } = setup();
+    manager.isConnected = true;
+    manager.sendMessageToTab = async () => ({ success: false, errorCode: 'downloadError', errorDetail: 'FILE_ACCESS_DENIED' });
+    await manager.downloadConversation();
+    assert.ok(messages.at(-1).text.includes('FILE_ACCESS_DENIED'));
+    const timers = [], canceled = [];
+    context.setTimeout = callback => { timers.push(callback); return timers.length; };
+    context.clearTimeout = id => canceled.push(id);
+    manager.showMessage = context.Manager.prototype.showMessage;
+    manager.showMessage('starting', 'info');
+    manager.showMessage('FILE_ACCESS_DENIED', 'error');
+    assert.equal(timers.length, 1, 'errors do not schedule auto-hide');
+    assert.ok(canceled.includes(1), 'previous auto-hide canceled');
+    assert.equal(nodes.message.textContent, 'FILE_ACCESS_DENIED');
+    assert.equal(nodes.message.style.display, 'block');
+});
+
+test('saved Markdown keeps original generated-image links without a live page', async () => {
+    const { manager, downloads, blobs } = setup([{ title: 'saved', url: 'https://www.genspark.ai/agents?id=saved',
+        messages: [{ type: 'assistant', content: '', markdown: '', images: [{ url: 'https://www.genspark.ai/api/files/s/saved' }] }] }]);
+    await manager.downloadAllConversations();
+    const text = await blobs.get(downloads[0].url).text();
+    assert.ok(text.includes('### Generated images'));
+    assert.ok(text.includes('https://www.genspark.ai/api/files/s/saved'));
+    assert.doesNotMatch(text, /^## Genspark$/m);
+});
+
+test('image-host access does not permit script injection on lookalike or navigated sites', async () => {
+    const { manager, context } = setup();
+    for (const url of ['https://genspark.ai/', 'https://www.genspark.ai/agents?id=x']) assert.equal(manager.isGensparkUrl(url), true);
+    for (const url of ['https://evil.test/?genspark.ai', 'https://genspark.ai.evil.test/',
+        'https://genspark.ai@evil.test/', 'http://genspark.ai/', 'file:///genspark.ai']) assert.equal(manager.isGensparkUrl(url), false);
+    manager.currentTab = { id: 12, url: 'https://www.genspark.ai/' };
+    context.chrome.tabs = { get: async () => ({ url: 'https://evil.test/?genspark.ai' }) };
+    let injected = false;
+    context.chrome.scripting = { executeScript: async () => { injected = true; } };
+    await assert.rejects(manager.injectContentScript());
+    assert.equal(injected, false);
+});
+
 test('content-script reinjection loads the shared Markdown renderer first', async () => {
     const { manager, context } = setup();
     manager.currentTab = { id: 12 };
     let files;
+    context.chrome.tabs = { get: async () => ({ url: 'https://www.genspark.ai/agents?id=test' }) };
     context.chrome.scripting = { executeScript: async options => { files = Array.from(options.files); } };
     context.setTimeout = callback => callback();
     await manager.injectContentScript();

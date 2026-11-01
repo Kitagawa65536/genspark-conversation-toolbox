@@ -19,7 +19,8 @@
         function render(node) {
             if (node.nodeType === 3) return escapeText(node.textContent || '');
             const name = tag(node);
-            if (skipTags.has(name) || attr(node, 'aria-hidden') === 'true') return '';
+            if (skipTags.has(name) || attr(node, 'aria-hidden') === 'true' ||
+                /(?:^|\s)(?:using-tool-call|inline-component|model-label|edit-buttons-wrapper)(?:\s|$)/.test(attr(node, 'class'))) return '';
             const inside = () => children(node).map(render).join('');
             if (name === 'BR') return '\n';
             if (name === 'HR') return '\n\n---\n\n';
@@ -46,7 +47,8 @@
                 return href ? `[${label || href}](<${href}>)` : label;
             }
             if (name === 'IMG') {
-                const src = safeUrl(attr(node, 'src'), base);
+                // Prefer the full-resolution source when Genspark serves a thumbnail.
+                const src = safeUrl(attr(node, 'data-src') || attr(node, 'data-original') || attr(node, 'src'), base);
                 return src ? `![${escapeText(attr(node, 'alt'))}](<${src}>)` : escapeText(attr(node, 'alt'));
             }
             if (/^H[1-6]$/.test(name)) return `\n\n${'#'.repeat(Number(name[1]))} ${inside().trim()}\n\n`;
@@ -91,21 +93,39 @@
         }
         return (result + output.slice(cursor).replace(/\n{3,}/g, '\n\n')).trim();
     }
-    function renderConversation({ title = 'Genspark conversation', url = '', messages = [], exportedAt = new Date().toISOString() }) {
+    function renderConversation({ title = 'Genspark conversation', url = '', messages = [], exportedAt = new Date().toISOString(), created = '', includeImages = true }) {
         let parsed;
         try { parsed = new URL(url); } catch { /* Old saved conversations may lack a URL. */ }
         const fields = { title, url, conversation_id: parsed?.searchParams.get('id') || '',
-            source: parsed?.hostname || 'genspark.ai', exported_at: exportedAt };
+            source: parsed?.hostname || 'genspark.ai' };
+        if (created) fields.created = created;
+        fields.exported_at = exportedAt;
         const metadata = Object.entries(fields).map(([key, value]) => `${key}: ${JSON.stringify(String(value))}`).join('\n');
         const heading = String(title).replace(/[\r\n]+/g, ' ');
-        const turns = messages.map(message => `## ${message.type === 'user' ? 'You' : 'Genspark'}\n\n${message.markdown || message.content || ''}`);
-        return `---\n${metadata}\n---\n\n# ${heading}\n\n${turns.join('\n\n')}\n`;
+        const turns = messages.filter(message => message.markdown || message.content).map(message => `## ${message.type === 'user' ? 'You' : 'Genspark'}\n\n${message.markdown || message.content || ''}`);
+        let result = `---\n${metadata}\n---\n\n# ${heading}\n\n${turns.join('\n\n')}\n`;
+        // Saved-conversation exports have no live download worker. Preserve
+        // their generated-image metadata as remote links rather than lose it.
+        if (includeImages) {
+            const images = [...new Set(messages.flatMap(message => message.images || [])
+                .map(image => safeUrl(typeof image === 'string' ? image : image.url, url)).filter(source => /^https?:/.test(source)))];
+            if (images.length) result += `\n### Generated images\n\n${images.map((source, index) =>
+                `![generated-image-${index + 1}](<${source}>)\n\n[Open original](<${source}>)`).join('\n\n')}\n`;
+        }
+        return result;
+    }
+
+    const localDate = (date = new Date()) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    // Windows- and Obsidian-safe name segment: no path separators, wildcards,
+    // control characters, wiki-link brackets or leading/trailing dots and spaces.
+    function safeName(value, fallback = 'Genspark conversation', limit = 100) {
+        const normalized = String(value || '').normalize('NFC')
+            .replace(/[<>:"/\\|?*\x00-\x1f[\]#^]/g, '_').replace(/\s+/g, ' ').trim()
+            .replace(/^[. ]+|[. ]+$/g, '');
+        return Array.from(normalized).slice(0, limit).join('') || fallback;
     }
     function filename(title, date = new Date(), extension = 'md') {
-        const localDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-        const safe = Array.from(String(title || 'Genspark conversation').replace(/[<>:"/\\|?*\x00-\x1f]/g, '_')
-            .replace(/[. ]+$/g, '')).slice(0, 160).join('') || 'Genspark conversation';
-        return `${localDate}-${safe}.${extension}`;
+        return `${localDate(date)}-${safeName(title, 'Genspark conversation', 160)}.${extension}`;
     }
-    root.GensparkMarkdown = { fromElement, renderConversation, filename };
+    root.GensparkMarkdown = { fromElement, renderConversation, filename, safeName };
 })(globalThis);
